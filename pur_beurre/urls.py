@@ -19,11 +19,13 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.contrib import admin
 
-from substitutes import views
 from users import views
+from substitutes import views
+
+
 
 urlpatterns = [
-    #url(r'^$', views.index),
+    url(r'^$', views.index),
     url(r'^users/', include('users.urls')),
     url(r'^substitutes/', include('substitutes.urls')),
     path('admin/', admin.site.urls),

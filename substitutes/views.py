@@ -1,9 +1,9 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
 
 def index(request):
-    message = "You're at the substitutes index !"
-    return HttpResponse(message)
+    template = loader.get_template('substitutes/index.html')
+    return HttpResponse(template.render(request=request))
 
 def search(request):
     obj = str(request.GET)
@@ -12,6 +12,7 @@ def search(request):
     return HttpResponse(message)
 
 def product_detail(request, product_id):
+    template = loader.get_template('substitutes/product.html')
     id = int(product_id) # make sure we have an integer.
     message = "L'id du produit est : {}".format(id)
-    return HttpResponse(message)
+    return HttpResponse(template.render(request=request))
