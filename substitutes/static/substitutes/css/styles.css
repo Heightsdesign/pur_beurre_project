@@ -102,12 +102,14 @@ h2, .h2 {
 
 h3, .h3 {
   font-size: calc(1.3rem + 0.6vw);
+
 }
 @media (min-width: 1200px) {
   h3, .h3 {
     font-size: 1.75rem;
   }
 }
+
 
 h4, .h4 {
   font-size: calc(1.275rem + 0.3vw);
@@ -129,6 +131,10 @@ h6, .h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+}
+
+#contact {
+  background-color: #ffffff;
 }
 
 abbr[title],
@@ -7413,7 +7419,7 @@ textarea.form-control-lg {
 }
 
 .bg-secondary {
-  background-color: #6c757d !important;
+  background-color: #ffffff !important;
 }
 
 .bg-success {
@@ -10865,6 +10871,7 @@ body {
 
 .page-section {
   padding: 8rem 0;
+
 }
 
 .text-white-75 {
@@ -10891,6 +10898,7 @@ hr.divider {
 hr.divider-light {
   background-color: #fff;
 }
+
 
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);

@@ -49,7 +49,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name', 'first_name']
-    favorites = models.ManyToManyField('substitutes.Favorites')
+    favorites = models.ManyToManyField('substitutes.Product', related_name="favorites", blank=True)
 
     def __str__(self):
         return self.user_name
