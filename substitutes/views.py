@@ -15,14 +15,12 @@ def product_detail(request, product_id):
     template = loader.get_template('substitutes/product.html')
     product = Product.objects.get(pk=product_id)
     categories = " ".join([category.name for category in product.categories.all()])
-    message = """Le nom du produit est {},
-    Son nutriscore est : {},
-    Son Repère nutritionnel est : {},
-    Ses categories sont :  {}.""".format(product.name, product.key_100g, product.nutriscore, categories)
-    return HttpResponse(message)
+    context = {'product':product, 'categories':categories}
+    return HttpResponse(template.render(context, request=request))
 
 def search(request):
     query = request.GET.get('query')
+    template = loader.get_template('substitutes/list.html')
     if not query:
         products = Product.objects.all()
     else:
@@ -35,17 +33,6 @@ def search(request):
     if not products.exists():
         message = "Misère de misère, nous n'avons trouvé aucun résultat !"
     else:
-        products_names = ["<li>{}</li>".format(product.name) for product in products]
-        nutriscores = ["<li>{}</li>".format(product.nutriscore) for product in products]
         products_categories = Categories.objects.filter(categories__name__icontains=query)
-        categories = ["<li>{}</li>".format(category.name) for category in products_categories]
-        message = """
-            Nous avons trouvé les produits correspondant à votre requête ! Les voici :
-            <ul>{}</ul>
-            Voici leur nutriscore
-            <ul>{}</ul>
-            Voici leur catégories
-            <ul>{}</ul>
-        """.format("</li><li>".join(products_names), "</li><li>".join(nutriscores), "</li><li>".join(categories))
-
-    return HttpResponse(message)
+        context = {'products':products, 'products_categories':products_categories}
+    return HttpResponse(template.render(context, request=request))

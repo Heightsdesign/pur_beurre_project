@@ -1,27 +1,30 @@
 {% extends 'substitutes/base.html' %}
 {% block content %}
-<!-- Banner -->
 <header class="banner">
     <div class="container px-4 px-lg-5 h-100">
         <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
             <div class="col-lg-8 align-self-end"></div>
             <div class="col-lg-8 align-self-baseline">
-                <h1 class="text-white mt-0">{{ product.name }}</h1>
+                <h1 class="text-white mt-0">FAVORIS</h1>
             </div>
         </div>
     </div>
-</header>
+</section>
 <body>
     <section class="page-section bg-secondary">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col text-center">
-                    <h4 class="mt-0">Nutriscore : {{ product.nutriscore}}</h4>
-                <div class="col text-center">
-                    <h4 class="mt-0">Repère nutrtionnel pour 100g : {{ product.key_100g }}</h4>
-                </div>
+            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                <ul>
+                    <li>
+                        {% for fav in user_favorites %}
+                        <h2 class="mt-0">
+                        {{ fav }}
+                        </h2>
+                        {% endfor %} 
+                    </li>
+                </ul>
             </div>  
         </div>
     </section>
 </body>
-{% endblock %}
+{%endblock%}
