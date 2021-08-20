@@ -23,11 +23,10 @@ from users import views
 from substitutes import views
 
 
-
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^users/', include('users.urls')),
-    url(r'^substitutes/', include('substitutes.urls')),
+    url(r'^users/', include(('users.urls', 'users'), namespace='users')),
+    url(r'^substitutes/', include(('substitutes.urls', 'substitutes'), namespace='substitutes')),
     path('admin/', admin.site.urls),
 ]
 

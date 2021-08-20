@@ -17,9 +17,9 @@
                 <ul>
                     <li>
                         {% for fav in user_favorites %}
-                        <h2 class="mt-0">
-                        {{ fav }}
-                        </h2>
+                        <a href="{% url 'substitutes:detail' product_id=fav.id %}">
+                        <h2 class="mt-0">{{ fav }}</h2></a>
+                        {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
                         {% endfor %} 
                     </li>
                 </ul>

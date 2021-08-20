@@ -1,7 +1,7 @@
 
-  <form class="col-lg-8 align-self-baseline" action="{% url 'substitutes:search' %}" method="get" accept-charset="utf-8">
+  <form class="col-lg-8 align-self-baseline" action="{% url 'substitutes:search' %}" method="GET" accept-charset="utf-8">
     <div class="form-group">
-      <input id="searchForm" class="form-control" placeholder="Chercher un aliment">
+      <input id="searchForm" class="form-control" placeholder="Chercher un aliment" name="query">
     </div>
     <span class="help-block" id="helpBlock"></span>
   </form>

@@ -16,6 +16,9 @@
         <link rel="icon" type="image/x-icon" href="{% static 'substitutes/assets/pur_beurre_logo.jpg' %}" />
         <!-- Bootstrap Icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!--Font Awesome Icons-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/230ebf5565.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
@@ -30,7 +33,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">
+                <a class="navbar-brand" href="{% url 'substitutes:index' %}">
                     <img class="img-fluid" src="{% static 'substitutes/assets/img/pur_beurre_logo.png' %}" alt="..." />
                     PUR BEURRE
                 </a>
@@ -40,9 +43,23 @@
 
                         {% include 'substitutes/search_form.html' %}
 
-                        <li class="nav-item"><a class="nav-link" href="#about">Mon compte</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#services">Mes aliments</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Déconnexion</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about" style="font-size: 2rem;">
+                            <i class="fas fa-user" title="Mon Compte"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about" style="font-size: 2rem;">
+                            <i class="fas fa-carrot" title="Mes Aliments"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services" style="font-size: 2rem;">
+                            <i class="fas fa-sign-out-alt" title="Connexion/Déconnexion"></i>
+                            </a>
+                        </li>
+                        
                     </ul>
                 </div>
             </div>
