@@ -1,0 +1,37 @@
+{% extends 'substitutes/banner.html' %}
+{% block insert %}
+<h1 class="text-white mt-0">Connectez-vous !</h1>
+{% endblock %}
+{% block body %}
+<body>
+    <section class="page-section bg-secondary">
+        <div class="container-fluid">
+            <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+                <div class="col-lg-6">
+                    <form class="form-inline" action="" method="POST">
+                        {% csrf_token %}
+
+                        <!-- Email address input-->
+                        <div class="form-floating mb-3">
+                           <input class="form-control" name="user_name" type="text" placeholder="Entrez votre nom d'utilisateur" data-sb-validations="required,user_name" />
+                           <!--  {{ form.user_name }}-->
+                            <label for="user_name">Nom d'utilisateur</label>
+                            <div class="invalid-feedback" data-sb-feedback="user_name:required">Une adresse Email est requise.</div>
+                            <div class="invalid-feedback" data-sb-feedback="user_name:user_name">Adresse Email non valide.</div>
+                        </div>
+                        <!-- Password input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="password" type="text" placeholder="Entrez votre mot de passe..." data-sb-validations="required,password" />
+                            <!--{{ form.password }}-->
+                            <label for="password">Mot de passe</label>
+                            <div class="invalid-feedback" data-sb-feedback="password:required">Un mot de passe est requis.</div>
+                            <div class="invalid-feedback" data-sb-feedback="password:password">Mot de passe non valide.</div>
+                        </div>
+                        <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Connexion</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'substitutes/banner.html' %}
+{% block insert %}
+<h1 class="text-white mt-0">Merci !</h1>
+{% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+{% endblock %}

@@ -1,20 +1,49 @@
-from django.contrib.auth import forms as auth_forms
-from django.contrib.auth import get_user_model
-from django.db.models.base import Model
-from django.forms import ModelForm
+from django import forms
+from django.forms.widgets import TextInput
 
-class UserCreationForm(auth_forms.UserCreationForm):
-    
-    class Meta(auth_forms.UserCreationForm.Meta):
-        #New user creation form
-        model = get_user_model()
-        # add fields variable to change form fields
-        # fields = "Enter fields"
+class UserCreationForm(forms.Form):
 
-class UserChangeForm(auth_forms.UserChangeForm):
+    first_name = forms.CharField(
+        label = 'first_name',
+        max_length = 150,
+        widget = forms.TextInput(attrs={'class' : 'form-control'}),
+        required = True
+    )
 
-    class Meta(auth_forms.UserChangeForm.Meta):
-        model = get_user_model()
+    user_name = forms.CharField(
+        label = 'user_name',
+        max_length = 150,
+        widget = forms.TextInput(attrs={'class' : 'form-control'}),
+        required = True
+    )
 
-class AdminForm(ModelForm):
-    model = get_user_model()
+    email = forms.EmailField(
+        label = 'email',
+        max_length = 150,
+        widget = forms.TextInput(attrs={'class' : 'form-control'}),
+        required = True
+    )
+
+    password = forms.CharField(
+        label = 'user_name',
+        max_length = 150,
+        widget = forms.TextInput(attrs={'class' : 'form-control'}),
+        required = True
+    )
+
+class LoginForm(forms.Form):
+
+    user_name = forms.CharField(
+        label = 'user_name',
+        max_length = 150,
+        widget = forms.TextInput(attrs={'class' : 'form-control'}),
+        required = True
+    )
+
+    password = forms.CharField(
+        label = 'user_name',
+        max_length = 150,
+        widget = forms.TextInput(attrs={'class' : 'form-control'}),
+        required = True
+    )
+

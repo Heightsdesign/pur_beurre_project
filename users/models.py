@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import User
+
+from pur_beurre import settings
 
 
 class CustomAccountManager(BaseUserManager):
@@ -36,9 +39,11 @@ class CustomAccountManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=150, blank=True)
+    password = models.CharField(max_length=150, blank=True)
     registration_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
