@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^favorites/$', views.favorites_page, name='favorites'),
     url(r'^subscribe/$', views.subscribe_page, name='subscribe'),
     url(r'^connexion/$', views.connexion_page, name='connexion'),
+    url(r'^logout/$', views.logout_view, name='logout'),
     ]
 

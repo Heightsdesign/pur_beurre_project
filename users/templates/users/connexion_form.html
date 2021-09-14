@@ -8,16 +8,15 @@
         <div class="container-fluid">
             <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                 <div class="col-lg-6">
-                    <form class="form-inline" action="" method="POST">
+                    <form class="form-inline" action="{% url 'users:connexion' %}" method="POST">
                         {% csrf_token %}
-
                         <!-- Email address input-->
                         <div class="form-floating mb-3">
-                           <input class="form-control" name="user_name" type="text" placeholder="Entrez votre nom d'utilisateur" data-sb-validations="required,user_name" />
-                           <!--  {{ form.user_name }}-->
-                            <label for="user_name">Nom d'utilisateur</label>
-                            <div class="invalid-feedback" data-sb-feedback="user_name:required">Une adresse Email est requise.</div>
-                            <div class="invalid-feedback" data-sb-feedback="user_name:user_name">Adresse Email non valide.</div>
+                           <input class="form-control" name="email" type="text" placeholder="Entrez votre nom d'utilisateur" data-sb-validations="required,user_name" />
+                            <!--{{ form.email }}-->
+                            <label for="email">Email</label>
+                            <div class="invalid-feedback" data-sb-feedback="email:required">Une adresse Email est requise.</div>
+                            <div class="invalid-feedback" data-sb-feedback="email:email">Adresse Email non valide.</div>
                         </div>
                         <!-- Password input-->
                         <div class="form-floating mb-3">

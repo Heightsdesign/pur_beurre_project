@@ -25,6 +25,7 @@ class DetailPageTestCase(TestCase):
         response = self.client.get(reverse('substitutes:detail', args=(product_id,)))
         self.assertEqual(response.status_code, 404)
 
+
 class SearchPageTestCase(TestCase):
 
     def setUp(self):

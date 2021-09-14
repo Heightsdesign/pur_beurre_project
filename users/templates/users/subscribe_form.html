@@ -10,19 +10,12 @@
                 <div class="col-lg-6">
                     <form class="form-inline" actions="{% url 'users:subscribe' %}" method="POST">
                         {% csrf_token %}
-                        <!-- Name input-->
                         <div class="form-floating mb-3">
-                            <!-- <input class="form-control" id="first_name" type="text" placeholder="Entrez votre prénom..." data-sb-validations="required" /> -->
+                           <!--<input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />-->
                             {{ form.first_name }}
                             <label for="first_name">Prénom</label>
                             <div class="invalid-feedback" data-sb-feedback="first_name:required">Un prénom est requis.</div>
-                        </div>
-                        <!-- Username input-->
-                        <div class="form-floating mb-3">
-                            <!-- <input class="form-control" id="user_name" type="text" placeholder="Entrez votre nom d'utilisateur..." data-sb-validations="required" />-->
-                            {{ form.user_name }}
-                            <label for="user_name">Nom d'utilisateur</label>
-                            <div class="invalid-feedback" data-sb-feedback="user_name:required">Un nom d'utilisateur est requis.</div>
+                            <div class="invalid-feedback" data-sb-feedback="first_name:first_name">Prénom non valide.</div>
                         </div>
                         <!-- Email address input-->
                         <div class="form-floating mb-3">
