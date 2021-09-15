@@ -12,6 +12,12 @@
                     <h4 class="mt-0">Nutriscore : {{ product.nutriscore }}</h4>
                 <div class="col text-center">
                     <h4 class="mt-0">Repère nutrtionnel pour 100g : {{ product.key_100g }}</h4>
+                    <div class="col text-center">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>  
         </div>
