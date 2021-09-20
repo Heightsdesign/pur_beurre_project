@@ -51,8 +51,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#about" style="font-size: 2rem;">
-                            <i class="fas fa-carrot" title="Mes Aliments"></i>
+                            {% if user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'users:favorites' user_id=user.id %}" style="font-size: 2rem;">
+                                {% else %}
+                                <a class="nav-link" href="{% url 'users:connexion' %}" style="font-size: 2rem;">
+                                {% endif %}
+                                    <i class="fas fa-carrot" title="Mes Aliments"></i>
                             </a>
                         </li>
                         

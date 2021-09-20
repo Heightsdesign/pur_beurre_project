@@ -17,17 +17,17 @@ def user_page(request, user_id):
     return HttpResponse(template.render(context, request=request))
 
 
-def favorites_page(request):
+def favorites_page(request, user_id):
 
-    query = request.GET.get('query')
     template = loader.get_template('users/favorites.html')
-    user = User.objects.filter(id__icontains=query)
 
-    if not user.exists():
-        message = "Misère de misère, nous n'avons trouvé aucun résultat !"
-    else:
-        user_favorites = Product.objects.filter(favorites__id__icontains=query)
-        context = {'user':user, 'user_favorites':user_favorites}
+    if request.user.is_authenticated and user_id is not None:
+
+        user = request.user
+        user_id = user.id
+        #query = request.GET.get('query')
+        user_favorites = Product.objects.filter(favorites__id__icontains=user_id)
+        context = {'user': user, 'user_favorites': user_favorites}
 
     return HttpResponse(template.render(context, request=request))
 
