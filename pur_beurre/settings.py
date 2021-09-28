@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'substitutes.apps.SubstitutesConfig',
+    'algorithm.apps.AlgorithmConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'django_nose',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +87,10 @@ DATABASES = {
         'USER' : 'postgres',
         'PASSWORD' : 'Eug&nia06240',
         'HOST' : '',
-        'PORT' : '5432'
+        'PORT' : '5432',
+        'OPTIONS': {
+            'client_encoding': 'UTF-8',
+        }
     }
 }
 
@@ -140,3 +145,7 @@ AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+

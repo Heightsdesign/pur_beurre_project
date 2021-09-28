@@ -25,7 +25,6 @@ def favorites_page(request, user_id):
 
         user = request.user
         user_id = user.id
-        #query = request.GET.get('query')
         user_favorites = Product.objects.filter(favorites__id__icontains=user_id)
         context = {'user': user, 'user_favorites': user_favorites}
 
@@ -50,8 +49,11 @@ def subscribe_page(request):
                     password=password,
                     first_name=first_name
                 )
+                message =messages.success(request, f'Nouveau compte crée pour {email}!')
 
-            messages.success(request, f'Nouveau compte crée pour {email}!')
+            else:
+                message = messages.info(request, "Ce compte existe déjà")
+
             return render(request, 'users/thank_you.html')
     else:
         form = UserCreationForm()

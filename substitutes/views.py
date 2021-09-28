@@ -12,34 +12,34 @@ def index(request):
     return HttpResponse(template.render(request=request))
 
 
-def listing(request):
-
-    products = ["<li>{}</li>".format(product['name']) for product in Product]
-    message = """<ul>{}</ul>""".format("\n".join(products))
-    return HttpResponse(message)
-
-
 def product_detail(request, product_id):
 
     template = loader.get_template('substitutes/product.html')
     product = get_object_or_404(Product, pk=product_id)
     categories = " ".join([category.name for category in product.categories.all()])
-    context = {'product':product, 'categories':categories}
+    context = {'product': product, 'categories': categories}
     return HttpResponse(template.render(context, request=request))
 
 
 def search(request):
 
+    # gets the query
     query = request.GET.get('query')
+
+    # loads the template list.html
     template = loader.get_template('substitutes/list.html')
+    # loads error template
     error_template = loader.get_template('404.html')
 
+    # Checks if there is a query
     if not query:
+        # Gets all products
         products = Product.objects.all()
     else:
         # title contains the query is and query is not sensitive to case.
         products = Product.objects.filter(name__icontains=query)
 
+        # Checks if products exists
         if not products.exists():
 
             context = {}
@@ -57,16 +57,16 @@ def search(request):
                     product_id = form.cleaned_data.get("product_id")
                     product = Product.objects.get(id=product_id)
                     user.favorites.add(product)
-                    messages.success(request, f'{product} Ajouter aux favoris !')
+                    message = messages.success(request, f'{product} Ajouter aux favoris !')
 
                 else:
-                    messages.info(request, f'Veuillez vous connecter !')
+                    message = messages.info(request, f'Veuillez vous connecter !')
 
                 return render(request, 'users/thank_you.html')
 
             else:
                 form = FavoriteForm()
 
-            context = {'products': products, 'products_categories': products_categories, 'form': form}
+        context = {'products': products, 'products_categories': products_categories, 'form': form}
 
     return HttpResponse(template.render(context, request=request))

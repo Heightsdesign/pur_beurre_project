@@ -22,10 +22,10 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
     def create_staffuser(self, email, password):
-        """
-        Creates and saves a staff user with the given email and password.
-        """
+
+        #Creates and saves a staff user with the given email and password.
         user = self.create_user(
             email,
             password=password,
@@ -35,9 +35,8 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password):
-        """
-        Creates and saves a superuser with the given email and password.
-        """
+        
+        #Creates and saves a superuser with the given email and password.
         user = self.create_user(
             email,
             password=password,
