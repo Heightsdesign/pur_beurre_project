@@ -14,8 +14,6 @@ from substitutes.models import Product as DbProduct
 from substitutes.models import Categories as DbCategories
 from substitutes.models import Nutriments as DbNutriments
 from connexion.api import ProductDownloader
-from connexion.mysql_connector import db_pur_beurre
-from connexion.mysql_connector import dbcursor
 import interface.constants as constants
 
 
@@ -81,7 +79,7 @@ class ProductParser:
                         prod.get("image_url", "")
                     )
 
-                obj_list.append(product)
+                    obj_list.append(product)
         return obj_list
 
 
@@ -92,22 +90,52 @@ class ProductManager:
 
         self.product_list = products
 
-    def save(self):
+    def win1252_parser(self, word):
+
+        for letter in word:
+            if letter not in constants.win_1252_charlist2:
+                word = word.replace(str(letter), "")
+
+        return word
+
+    def save_products(self):
         # Inserts products in database
 
         for product in self.product_list:
 
-            product_name = product.name.replace("'", " ")\
-                .replace("é", "e")\
+            product_name = product.name.replace("é", "e")\
                 .replace("è", "e")\
                 .replace("à", "a")\
-                .replace("î", "i")
+                .replace("î", "i")\
+                .replace("â", "a")\
+                .replace("ü", "u")\
+                .replace("ß", " ")\
+                .replace("ô", "o")\
+                .replace("ê", "e")\
+                .replace("ë", "e")\
+                .replace("ï", "i")\
+                .replace("û", "u")\
+                .replace("œ", "oe")\
+                .replace("Ê", "E")\
+                .replace("É", "E")\
+                .replace("ã", "")\
+                .replace("Î", "I")\
+                .replace("ó", "o")\
+                .replace("Œ", "OE")\
+                .replace("Â", "A")\
+                .replace("ú", "u")\
+                .replace("ö", "o")\
+                .replace("ä", "a")\
+
+            product_name = self.win1252_parser(product_name)
 
             product_nutriscore = product.nutriscore
             product_nutriments = product.nutriments
             product_url = product.url
             product_img_url = product.img_url
             product_categories = product.categories
+
+            print(product_name)
 
             product = DbProduct(
                 name=product_name,
@@ -128,9 +156,27 @@ class ProductManager:
                     .replace("î", "i")\
                     .replace("â", "a")\
                     .replace("ü", "u")\
-                    .replace("ß", " ")
+                    .replace("ß", " ")\
+                    .replace("ô", "o")\
+                    .replace("ê", "e")\
+                    .replace("ë", "e")\
+                    .replace("ï", "i")\
+                    .replace("û", "u")\
+                    .replace("œ", "oe")\
+                    .replace("Ê", "E")\
+                    .replace("🍓", " ")\
+                    .replace("É", "E")\
+                    .replace("ã", "")\
+                    .replace("Î", "I")\
+                    .replace("ó", "o")\
+                    .replace("Œ", "OE")\
+                    .replace("Â", "A")\
+                    .replace("ú", "u")\
+                    .replace("ö", "o")\
+                    .replace("ä", "a")\
 
-                print(category)
+                category = self.win1252_parser(category)
+
                 cat = DbCategories.objects.create(name=category)
                 product.categories.add(cat)
 
@@ -138,150 +184,74 @@ class ProductManager:
                 nut = DbNutriments.objects.create(name=nutriment)
                 product.nutriments.add(nut)
 
+    def delete_doubles(self, dbobject):
+
+        # Deletes doubles in dbobject table
+        for row in dbobject.objects.all().reverse():
+            if dbobject.objects.filter(name=row.name).count() > 1:
+                row.delete()
 
 
-    def products_category_fetcher(self):
-        # Gets products from the selected category
+class SubstitutesFetcher:
 
-        dbcursor.execute("USE pur_beurre")
+    def __init__(self, product_input):
 
-        dbcursor.execute(
-            "SELECT products.id, products.name "
-            "FROM products "
-            "INNER JOIN product_categories ON "
-            "product_categories.idproduct = products.id "
-            "INNER JOIN categories ON "
-            "product_categories.idcategory = categories.id "
-            "WHERE categories.name = %(category)s",
-            {
-                "category": constants.categories_menu_list[
-                    int(constants.categories_choice) - 1
-                    ]
-            },
-        )
-        db_pur_beurre.commit()
-        self.result = dbcursor.fetchall()
-
-        return self.result
+        self.product_input = product_input
 
     def get_product_nutriscore(self):
+
         # Gets the product nutriscore
-        dbcursor.execute("USE pur_beurre")
-
-        dbcursor.execute(
-            "SELECT products.nutriscore "
-            "FROM products "
-            "WHERE products.id = %(prod)s",
-            {
-                "prod": str(self.result[int(constants.product_input) - 1])
-                    .replace("(", "")
-                    .replace(")", "")
-                    .replace(",", "")
-                    .replace("'", "")
-            },
-        )
-
-        nutriscore = dbcursor.fetchall()
+        self.product = DbProduct.objects.get(name=self.product_input)
+        nutriscore = self.product.nutriscore
 
         return nutriscore
 
     def get_product_categories(self):
         # Gets the categories associated with a product
+        # Gets the product from db passed as an arg to class
+        self.product = DbProduct.objects.get(name=self.product_input)
 
-        dbcursor.execute(
-            "SELECT categories.name "
-            "FROM categories "
-            "INNER JOIN product_categories ON "
-            "product_categories.idcategory = categories.id "
-            "INNER JOIN products ON "
-            "product_categories.idproduct = products.id "
-            "WHERE products.id = %(prod)s",
-            {
-                "prod": str(self.result[int(constants.product_input) - 1])
-                    .replace("(", "")
-                    .replace(")", "")
-                    .replace(",", "")
-                    .replace("'", "")
-            },
-        )
+        # Gets the categories attached to product
+        self.categories = self.product.categories.all()
 
-        product_cats = dbcursor.fetchall()
+        # inserts the categories names in a list
+        self.product_cats = []
+        for category in self.categories:
+            self.product_cats.append(category.name)
 
-        return product_cats
+        return self.product_cats
 
     def get_product_substitutes(self):
         # Gets the substitutes of a product 1/2
+        self.product_cats = self.get_product_categories()
 
         self.substitutes_categories = []
+        self.substitutes_names = []
         self.substitutes = {}
 
-        dbcursor.execute("USE pur_beurre")
+        # gets all products that shares one category in common with product
+        for category in self.product_cats:
+            products = DbProduct.objects.filter(categories__name__icontains=category)
 
-        dbcursor.execute(
-            "SELECT products.id "
-            "FROM products "
-            "INNER JOIN product_categories ON "
-            "product_categories.idproduct = products.id "
-            "INNER JOIN categories ON "
-            "product_categories.idcategory = categories.id "
-            "WHERE categories.name IN (SELECT categories.name "
-            "FROM categories "
-            "INNER JOIN product_categories ON "
-            "product_categories.idcategory = categories.id "
-            "INNER JOIN products ON "
-            "product_categories.idproduct = products.id "
-            "WHERE products.id = %(product)s)",
-            {
-                "product": str(self.result[int(constants.product_input) - 1])
-                    .replace("(", "")
-                    .replace(")", "")
-                    .replace(",", "")
-                    .replace("'", "")
-            },
-        )
-        # 1. gets all products(possible substitutes)
-        # with at least one common category
+        # gets all the categories of all products
+        for product in products:
 
-        substitutes_ids = dbcursor.fetchall()
+            self.substitutes_categories = list(product.categories.all())
 
-        for substitute in substitutes_ids:
-            dbcursor.execute("USE pur_beurre")
-            dbcursor.execute(
-                "SELECT categories.name "
-                "FROM categories "
-                "INNER JOIN product_categories ON "
-                "product_categories.idcategory = categories.id "
-                "INNER JOIN products ON "
-                "product_categories.idproduct = products.id "
-                "WHERE products.id = %(substitute)s",
-                {
-                    "substitute": str(substitute)
-                        .replace("(", "")
-                        .replace(")", "")
-                        .replace(",", "")
-                        .replace("'", "")
-                },
-            )
-            # 2. gets all the categories names attached
-            # to the possible substitutes found in step 1
-
-            fetcher = dbcursor.fetchall()
-
-            self.substitutes_categories.append(fetcher)
-            for categories in self.substitutes_categories:
-                self.substitutes.update([(substitute, categories)])
-                # zips the possible substitutes and their categories in a dict
+            self.substitutes.update([(product.name, self.substitutes_categories)])
 
         return self.substitutes
 
     def get_product_substitutes_2(self):
         # Gets the substitutes of a product 2/2
 
+        self.substitutes = self.get_product_substitutes()
+
         substitutes_final = []
         for substitute, categories in self.substitutes.items():
             shared_categories = 0
             for category in categories:
-                if category in self.get_product_categories():
+                if category.name in self.get_product_categories():
                     shared_categories += 1
             self.substitutes.update([(substitute, shared_categories)])
 
@@ -292,30 +262,8 @@ class ProductManager:
         # shared categories with the original product
 
         for key, shared_cat in sorted_substitutes:
-
             if shared_cat > 1:
-                # verifies if they have more than 1 category
-                # in common the fetches the subtitutes
-                dbcursor.execute("USE pur_beurre")
-                dbcursor.execute(
-                    "SELECT products.name, "
-                    "products.id, "
-                    "products.ingredients, "
-                    "products.nutriscore, "
-                    "products.url "
-                    "FROM products "
-                    "WHERE products.id = %(name)s ",
-                    {
-                        "name": str(key[0])
-                            .replace("(", "")
-                            .replace(")", "")
-                            .replace(",", "")
-                            .replace("'", "")
-                            .strip()
-                    },
-                )
-                substitutes_fetcher = dbcursor.fetchall()
-                substitutes_final.append(substitutes_fetcher)
+                substitutes_final.append(key)
 
         return substitutes_final
 

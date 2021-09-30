@@ -22,3 +22,5 @@ home_input = "Veuillez selectionner une option "
 product_input = 0
 nutriscore = {"a": 4, "b": 3, "c": 2, "d": 1, "e": 0}
 fav = ""
+
+win_1252_charlist2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789,'%.()& "
