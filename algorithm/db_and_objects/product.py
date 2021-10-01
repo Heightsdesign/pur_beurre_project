@@ -10,6 +10,7 @@ sys.path.append('D:\Openclassrooms\P8\pur_beurre_project')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'pur_beurre.settings'
 import django
 django.setup()
+sys.path.append("D:/Openclassrooms/P8/pur_beurre_project/algorithm")
 from substitutes.models import Product as DbProduct
 from substitutes.models import Categories as DbCategories
 from substitutes.models import Nutriments as DbNutriments
@@ -266,4 +267,79 @@ class SubstitutesFetcher:
                 substitutes_final.append(key)
 
         return substitutes_final
+
+
+class FinalParser:
+
+    def __init__(self, fetcher):
+
+        self.fetcher = fetcher
+
+    def give_letter_value(self, arg):
+        # This method takes a nutriscore as an argument
+        # and turns it into a score (int)
+        # based on the value associated
+        # with it in constants.nutriscore variable
+
+        self.arg = arg
+        for letter in arg:
+            if letter in constants.nutriscore:
+                score = constants.nutriscore[letter]
+
+        return score
+
+    def result_parser(self, prodselect):
+        # This method compares the possible subtitutes from a list
+        # (previously sorted by the most categories shared
+        # with the selected product)
+        # and gets the products with closest nutriscore
+        # then finally prints it in a readable manner.
+
+        self.favorites = []
+        self.nutriscore = self.fetcher.get_product_nutriscore()
+
+        self.nutriscore = self.give_letter_value(self.nutriscore)
+
+        products = []
+
+        for product_name in prodselect:
+            product_obj = DbProduct.objects.get(name=product_name)
+            products.append(product_obj)
+
+        product_count = 0
+
+        for product in products:
+            product_nutriscore = self.give_letter_value(product.nutriscore)
+            if (
+                    self.nutriscore <= 1
+                    and product_nutriscore
+                    <= 2
+                    and product_nutriscore
+                    > 0
+            ):
+                product_count += 1
+                self.favorites.append(product)
+
+            if (
+                    self.nutriscore <= 3
+                    and self.nutriscore > 1
+                    and product_nutriscore
+                    >= 2
+            ):
+                product_count += 1
+                self.favorites.append(product)
+
+            if (
+                    self.nutriscore == 4
+                    and product_nutriscore
+                    > 2
+            ):
+                product_count += 1
+                self.favorites.append(product)
+
+
+        return self.favorites
+
+
+
 

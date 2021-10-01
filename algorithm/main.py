@@ -3,10 +3,12 @@
 
 """Main file, launches application"""
 
-from interface.userInterface import SiteDevInterface
+#from interface.userInterface import SiteDevInterface
+import sys
+sys.path.append("D:/Openclassrooms/P8/pur_beurre_project/algorithm")
 
 
-
+"""
 def main():
     # main fonction launches the application, checks if db exists, creates it if not
     print(
@@ -15,6 +17,7 @@ def main():
     )
 
     SiteDevInterface().get_product_input()
+"""
 
 
 if __name__ == "__main__":

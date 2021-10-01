@@ -4,6 +4,8 @@ from . models import Product, Categories
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from .forms import FavoriteForm
+from django.core.exceptions import ObjectDoesNotExist
+from algorithm.db_and_objects.product import SubstitutesFetcher, FinalParser
 
 
 def index(request):
@@ -36,11 +38,23 @@ def search(request):
         # Gets all products
         products = Product.objects.all()
     else:
-        # title contains the query is and query is not sensitive to case.
-        products = Product.objects.filter(name__icontains=query)
+        try:
+            # title contains the query is and query is not sensitive to case.
+            product_query = Product.objects.get(name=query)
+            look_alikes = Product.objects.filter(name__icontains=query)
+            print(product_query)
+            substitutesfetcher = SubstitutesFetcher(query)
+            prodselect = substitutesfetcher.get_product_substitutes_2()
+            products = FinalParser(substitutesfetcher).result_parser(prodselect)
+            for prod in look_alikes:
+                products.append(prod)
 
-        # Checks if products exists
-        if not products.exists():
+        except ObjectDoesNotExist:
+            message = messages.info(request, "Aucun produit ne correspond à votre demande")
+            return render(request, 'users/thank_you.html')
+
+            # Checks if products exists
+        if len(products) == 0:
 
             context = {}
             return HttpResponse(error_template.render(context, request=request))
@@ -67,6 +81,6 @@ def search(request):
             else:
                 form = FavoriteForm()
 
-        context = {'products': products, 'products_categories': products_categories, 'form': form}
+        context = {'products': products, 'product_query': product_query, 'form': form}
 
     return HttpResponse(template.render(context, request=request))
