@@ -5,12 +5,32 @@
 <h1 class="text-white mt-0">{{ product_query.name }}</h1>
 {% endblock %}
 {% block body %}
+{% load static %}
+    <style>
+        .imageoverlap{
+
+        position: absolute;
+        top:100px;
+
+        }
+    </style>
     {% for product in products %}
         <div class="col-sm-4 text-center">
-            <a href="{% url 'substitutes:detail' product_id=product.id %}">
+            <a href="{% url 'substitutes:detail' product_id=product.id %}" style="text-decoration:none;">
                 <img class="img-responsive" src={{ product.imgurl }} alt={{ product.name }}>
+                {% if product.nutriscore == "a" %}
+                    <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreLetter/A.png' %}" alt="..." />
+                {% elif product.nutriscore == "b" %}
+                    <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreLetter/B.png' %}" alt="..." />
+                {% elif product.nutriscore == "c" %}
+                    <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreLetter/C.png' %}" alt="..." />
+                {% elif product.nutriscore == "d" %}
+                    <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreLetter/D.png' %}" alt="..." />
+                {% elif product.nutriscore == "e" %}
+                    <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreLetter/E.png' %}" alt="..." />
+                {% endif %}
+                <h4 class="text-white mt-0">I</h4>
                 <h4 class=" mt-0">{{ product.name }}</h4>
-                <h4 class="mt-0">{{ product.nutriscore }}</h4>
             </a>
             <!-- <hr class="divider" /> -->
             <form method="POST">
@@ -19,6 +39,24 @@
                     <i class="fas fa-save" title="Ajouter aux favoris"></i>
                 </button>
             </form>
+            <h1 class="text-white mt-0">I</h1>
         </div>
     {% endfor %}
+    {% if paginate %}
+      <div class="clearfix"></div>
+        <nav aria-label="">
+        <ul class="pager">
+          {% if products.has_previous %}
+              <li><a href="?page={{ products.previous_page_number }}">
+                  <h4 class="mt-0">Précédent</h4>
+              </a></li>
+          {% endif %}
+          {% if products.has_next %}
+              <li><a href="?page={{ products.next_page_number }}">
+                  <h4 class="mt-0">Suivant</h4>
+              </a></li>
+          {% endif %}
+        </ul>
+    </nav>
+{% endif %}
 {% endblock %}

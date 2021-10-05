@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from .forms import FavoriteForm
 from django.core.exceptions import ObjectDoesNotExist
 from algorithm.db_and_objects.product import SubstitutesFetcher, FinalParser
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def index(request):
@@ -18,8 +19,8 @@ def product_detail(request, product_id):
 
     template = loader.get_template('substitutes/product.html')
     product = get_object_or_404(Product, pk=product_id)
-    categories = " ".join([category.name for category in product.categories.all()])
-    context = {'product': product, 'categories': categories}
+    nutriments = product.nutriments.all()
+    context = {'product': product, 'nutriments': nutriments}
     return HttpResponse(template.render(context, request=request))
 
 
@@ -42,12 +43,21 @@ def search(request):
             # title contains the query is and query is not sensitive to case.
             product_query = Product.objects.get(name=query)
             look_alikes = Product.objects.filter(name__icontains=query)
-            print(product_query)
             substitutesfetcher = SubstitutesFetcher(query)
             prodselect = substitutesfetcher.get_product_substitutes_2()
-            products = FinalParser(substitutesfetcher).result_parser(prodselect)
+            product_list = FinalParser(substitutesfetcher).result_parser(prodselect)
             for prod in look_alikes:
-                products.append(prod)
+                product_list.append(prod)
+            paginator = Paginator(product_list, 6)
+            page = request.GET.get('page')
+            try:
+                products = paginator.page(page)
+
+            except PageNotAnInteger:
+                products = paginator.page(1)
+
+            except EmptyPage:
+                products = paginator.page(paginator.num_pages)
 
         except ObjectDoesNotExist:
             message = messages.info(request, "Aucun produit ne correspond à votre demande")
@@ -81,6 +91,11 @@ def search(request):
             else:
                 form = FavoriteForm()
 
-        context = {'products': products, 'product_query': product_query, 'form': form}
+        context = {
+            'products': products,
+            'product_query': product_query,
+            'form': form,
+            'paginate': True
+        }
 
     return HttpResponse(template.render(context, request=request))
