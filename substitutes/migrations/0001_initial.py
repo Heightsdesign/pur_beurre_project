@@ -7,35 +7,71 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Categories',
+            name="Categories",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Stores',
+            name="Stores",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('nutriscore', models.CharField(max_length=1)),
-                ('key_100g', models.TextField()),
-                ('url', models.URLField()),
-                ('imgurl', models.URLField(null=True)),
-                ('categories', models.ManyToManyField(blank=True, related_name='categories', to='substitutes.Categories')),
-                ('stores', models.ManyToManyField(blank=True, related_name='stores', to='substitutes.Stores')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("nutriscore", models.CharField(max_length=1)),
+                ("key_100g", models.TextField()),
+                ("url", models.URLField()),
+                ("imgurl", models.URLField(null=True)),
+                (
+                    "categories",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="categories",
+                        to="substitutes.Categories",
+                    ),
+                ),
+                (
+                    "stores",
+                    models.ManyToManyField(
+                        blank=True, related_name="stores",
+                        to="substitutes.Stores"
+                    ),
+                ),
             ],
         ),
     ]

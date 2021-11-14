@@ -5,7 +5,8 @@
 and creates and object Product from it
 and adds the object in a list"""
 
-import sys, os
+import sys
+import os
 sys.path.append('D:\Openclassrooms\P8\pur_beurre_project')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'pur_beurre.settings'
 import django
@@ -22,8 +23,16 @@ class Product:
     """Creating Product object"""
 
     def __init__(
-            self, id, name, nutriscore, nutriments, stores, url, categories, img_url
+        self,
+        id,
+        name,
+        nutriscore,
+        nutriments,
+        stores,
+        url,
+        categories, img_url
     ):
+
         # initializes the object with attributes passed as arguments
         self.id = id
         self.name = name
@@ -43,7 +52,6 @@ class ProductParser:
         # initializes object ProductParser,
         # the parameters passed as an argument are determined
         # in the ProductDownloader class
-
         self.data = ProductDownloader().response()
 
     def is_valid(self, prod):
@@ -65,9 +73,9 @@ class ProductParser:
 
         obj_list = []
         for page in self.data:
-
             products = page["products"]
             for prod in products:
+                # print(type(prod["nutriments"]), prod["nutriments"])
                 if self.is_valid(prod):
                     product = Product(
                         prod["code"],
@@ -77,7 +85,7 @@ class ProductParser:
                         prod.get("stores", ""),
                         prod["url"],
                         prod["categories"],
-                        prod.get("image_url", "")
+                        prod.get("image_url", ""),
                     )
 
                     obj_list.append(product)
@@ -104,32 +112,33 @@ class ProductManager:
 
         for product in self.product_list:
 
-            product_name = product.name.replace("é", "e")\
-                .replace("è", "e")\
-                .replace("à", "a")\
-                .replace("î", "i")\
-                .replace("â", "a")\
-                .replace("ü", "u")\
-                .replace("ß", " ")\
-                .replace("ô", "o")\
-                .replace("ê", "e")\
-                .replace("ë", "e")\
-                .replace("ï", "i")\
-                .replace("û", "u")\
-                .replace("œ", "oe")\
-                .replace("Ê", "E")\
-                .replace("É", "E")\
-                .replace("ã", "")\
-                .replace("Î", "I")\
-                .replace("ó", "o")\
-                .replace("Œ", "OE")\
-                .replace("Â", "A")\
-                .replace("ú", "u")\
-                .replace("ö", "o")\
-                .replace("ä", "a")\
+            product_name = (
+                product.name.replace("é", "e")
+                .replace("è", "e")
+                .replace("à", "a")
+                .replace("î", "i")
+                .replace("â", "a")
+                .replace("ü", "u")
+                .replace("ß", " ")
+                .replace("ô", "o")
+                .replace("ê", "e")
+                .replace("ë", "e")
+                .replace("ï", "i")
+                .replace("û", "u")
+                .replace("œ", "oe")
+                .replace("Ê", "E")
+                .replace("É", "E")
+                .replace("ã", "")
+                .replace("Î", "I")
+                .replace("ó", "o")
+                .replace("Œ", "OE")
+                .replace("Â", "A")
+                .replace("ú", "u")
+                .replace("ö", "o")
+                .replace("ä", "a")
+            )
 
             product_name = self.win1252_parser(product_name)
-
             product_nutriscore = product.nutriscore
             product_nutriments = product.nutriments
             product_url = product.url
@@ -150,40 +159,46 @@ class ProductManager:
             product_categories = product_categories.split(",")
 
             for category in product_categories:
-                category = category.replace("'", " ")\
-                    .replace("é", "e")\
-                    .replace("è", "e")\
-                    .replace("à", "a")\
-                    .replace("î", "i")\
-                    .replace("â", "a")\
-                    .replace("ü", "u")\
-                    .replace("ß", " ")\
-                    .replace("ô", "o")\
-                    .replace("ê", "e")\
-                    .replace("ë", "e")\
-                    .replace("ï", "i")\
-                    .replace("û", "u")\
-                    .replace("œ", "oe")\
-                    .replace("Ê", "E")\
-                    .replace("🍓", " ")\
-                    .replace("É", "E")\
-                    .replace("ã", "")\
-                    .replace("Î", "I")\
-                    .replace("ó", "o")\
-                    .replace("Œ", "OE")\
-                    .replace("Â", "A")\
-                    .replace("ú", "u")\
-                    .replace("ö", "o")\
-                    .replace("ä", "a")\
-
+                category = (
+                    category.replace("'", " ")
+                    .replace("é", "e")
+                    .replace("è", "e")
+                    .replace("à", "a")
+                    .replace("î", "i")
+                    .replace("â", "a")
+                    .replace("ü", "u")
+                    .replace("ß", " ")
+                    .replace("ô", "o")
+                    .replace("ê", "e")
+                    .replace("ë", "e")
+                    .replace("ï", "i")
+                    .replace("û", "u")
+                    .replace("œ", "oe")
+                    .replace("Ê", "E")
+                    .replace("🍓", " ")
+                    .replace("É", "E")
+                    .replace("ã", "")
+                    .replace("Î", "I")
+                    .replace("ó", "o")
+                    .replace("Œ", "OE")
+                    .replace("Â", "A")
+                    .replace("ú", "u")
+                    .replace("ö", "o")
+                    .replace("ä", "a")
+                )
                 category = self.win1252_parser(category)
 
                 cat = DbCategories.objects.create(name=category)
                 product.categories.add(cat)
 
-            for nutriment in product_nutriments:
-                nut = DbNutriments.objects.create(name=nutriment)
-                product.nutriments.add(nut)
+            for nutriment_name, nutriment_value in product_nutriments.items():
+                if type(nutriment_value) != type(1):
+                    nutriment_value = 0
+                    nut = DbNutriments.objects.create(name=nutriment_name, value=nutriment_value)
+                    product.nutriments.add(nut)
+                else:
+                    nut = DbNutriments.objects.create(name=nutriment_name, value=nutriment_value)
+                    product.nutriments.add(nut)
 
     def delete_doubles(self, dbobject):
 
@@ -194,7 +209,6 @@ class ProductManager:
 
 
 class SubstitutesFetcher:
-
     def __init__(self, product_input):
 
         self.product_input = product_input
@@ -232,14 +246,19 @@ class SubstitutesFetcher:
 
         # gets all products that shares one category in common with product
         for category in self.product_cats:
-            products = DbProduct.objects.filter(categories__name__icontains=category)
+            products = DbProduct.objects.filter(
+                categories__name__icontains=category
+            )
 
         # gets all the categories of all products
         for product in products:
 
             self.substitutes_categories = list(product.categories.all())
 
-            self.substitutes.update([(product.name, self.substitutes_categories)])
+            self.substitutes.update([(
+                product.name,
+                self.substitutes_categories
+            )])
 
         return self.substitutes
 
@@ -270,7 +289,6 @@ class SubstitutesFetcher:
 
 
 class FinalParser:
-
     def __init__(self, fetcher):
 
         self.fetcher = fetcher
@@ -311,35 +329,28 @@ class FinalParser:
         for product in products:
             product_nutriscore = self.give_letter_value(product.nutriscore)
             if (
-                    self.nutriscore <= 1
-                    and product_nutriscore
-                    <= 2
-                    and product_nutriscore
-                    > 0
+                self.nutriscore <= 1
+                and product_nutriscore <= 2
+                and product_nutriscore > 0
             ):
                 product_count += 1
                 self.favorites.append(product)
 
             if (
-                    self.nutriscore <= 3
-                    and self.nutriscore > 1
-                    and product_nutriscore
-                    >= 2
+                self.nutriscore <= 3
+                and self.nutriscore > 1
+                and product_nutriscore >= 2
             ):
                 product_count += 1
                 self.favorites.append(product)
 
-            if (
-                    self.nutriscore == 4
-                    and product_nutriscore
-                    > 2
-            ):
+            if self.nutriscore == 4 and product_nutriscore > 2:
                 product_count += 1
                 self.favorites.append(product)
-
 
         return self.favorites
 
-
-
-
+    # prods = ProductParser().parser()
+    # manager = ProductManager(prods)
+    # manager.save_products()
+    # manager.delete_doubles(DbProduct)

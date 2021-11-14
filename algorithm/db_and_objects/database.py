@@ -3,7 +3,6 @@
 from db_and_objects.product import ProductManager
 
 
-
 class Database:
     """Creates the database and works with the
     table class object to create the table within it"""
@@ -11,7 +10,6 @@ class Database:
     def __init__(self, products):
 
         self.products = products
-
 
     def database_constructor(self):
         # inserts data in the database

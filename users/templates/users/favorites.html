@@ -3,21 +3,35 @@
     <h1 class="text-white mt-0">VOS FAVORIS</h1>
 {% endblock %}
 {% block body %}
-<body>
-    <section class="page-section bg-secondary">
-        <div class="container-fluid">
-            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-                <ul>
-                    <li>
-                        {% for fav in user_favorites %}
-                        <a href="{% url 'substitutes:detail' product_id=fav.id %}">
-                        <h2 class="mt-0">{{ fav }}</h2></a>
-                        {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
-                        {% endfor %} 
-                    </li>
-                </ul>
-            </div>  
-        </div>
-    </section>
-</body>
+{% load static %}
+<style>
+    .imageoverlap{
+
+    position: absolute;
+    top:100px;
+
+    }
+</style>
+{% for fav in user_favorites %}
+    <div class="col-sm-4 text-center">
+        <a href="{% url 'substitutes:detail' product_id=fav.id %}" style="text-decoration:none;">
+        <img class="img-responsive img-fluid" src={{ fav.imgurl }} alt={{ fav.name }}>
+                {% if product.nutriscore == "a" %}
+                    <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreLetter/A.png' %}" alt="..." />
+                {% elif fav.nutriscore == "b" %}
+                    <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreLetter/B.png' %}" alt="..." />
+                {% elif fav.nutriscore == "c" %}
+                    <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreLetter/C.png' %}" alt="..." />
+                {% elif fav.nutriscore == "d" %}
+                    <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreLetter/D.png' %}" alt="..." />
+                {% elif fav.nutriscore == "e" %}
+                    <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreLetter/E.png' %}" alt="..." />
+                {% endif %}
+                <h4 class="text-white mt-0">I</h4>
+                <h4 class=" mt-0">{{ product.name }}
+            </h4>
+        </a>
+    </div>{% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
+{% endfor %}
+
 {% endblock %}

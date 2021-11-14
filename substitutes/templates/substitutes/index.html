@@ -2,7 +2,12 @@
 {% extends 'substitutes/base.html' %}
 {% block content %}
 {% load static %}
-
+<style>
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+</style>
 <!-- Masthead-->
 <header class="masthead">
     <div class="container px-4 px-lg-5 h-100">
@@ -20,17 +25,18 @@
 </header>
 <!-- About-->
 <section class="page-section bg-primary" id="about">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="container-fluid">
+        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
             <div class="col-lg-8 text-center">
                 <h2 class="text-white mt-0">Colette et Rémy</h2>
                 <hr class="divider divider-light" />
                 <div class="row justify-content-center">
-                    <div class="col-4">
-                        <img class="img" src="{% static 'substitutes/assets/img/colette.png' %}" alt="..." />
+                    <div class="col-5 col-lg-4 col-sm-3 col-md-3">
+                        <img class="img-fluid" src="{% static 'substitutes/assets/img/colette.png' %}" alt="..." />
                     </div>
-                    <div class="col-4">
-                        <img class="img" src="{% static 'substitutes/assets/img/ratatouille.png' %}" alt="..." />
+                    <div class="col-2 col-lg-1 col-sm-2 col-md-2"></div>
+                    <div class="col-5 col-lg-4 col-sm-3 col-md-3">
+                        <img class="img-fluid" src="{% static 'substitutes/assets/img/ratatouille.png' %}" alt="..." />
                     </div>
                 </div>
                 <p class="text-white-75 mb-4">Nous sommes une jeune startup fondée par Remy et Colette Tatou, deux restaurateurs de renom. Notre restaurant, situé à Montmartre (Paris), compte une cinquantaine de couverts et ne désemplit pas. Notre spécialité, la ratatouille, nous attire une clientèle internationale charmée par les délices de ce plat typique.</p>
@@ -40,25 +46,26 @@
     </div>
 </section>
 <!-- Contact-->
-<section class="page-section bg-secondary" id="contact">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
+<section class="page-section bg-secondary">
+    <div class="container fluid">
+        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
             <div class="col-lg-8 col-xl-6 text-center">
                 <h2 class="mt-0">Contactez-nous!</h2>
                 <hr class="divider" />
             </div>
         </div>
     </div>
-<section class="page-section bg-secondary" id="contact">
-    <div class="container-fluid px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5">
-            <div class="col-sm-6 col-md-6 text-center">
-                <img class="img" src="{% static 'substitutes/assets/img/phone_icon.png' %}" alt="..." />
-                <h4 class="mt-0">Telephone : 06.56.23.89.45</h4>
+<section class="page-section bg-secondary">
+    <div class="container-fluid">
+        <div class="row gx-4 gx-lg-5 h-100 justify-content-center text-center">
+                <div class=" col-3 col-lg-2 col-sm-3 col-md-2 text-center" style="margin-bottom:80px;">
+                <img class="img-fluid" src="{% static 'substitutes/assets/img/phone_icon.png' %}" alt="..." />
+                <h6 class="mt-0">Telephone : 06.56.23.89.45</h6>
             </div>
-            <div class="col-sm-6 col-md-6 text-center">
-                <img class="img" src="{% static 'substitutes/assets/img/mail_icon.png' %}" alt="..." />
-                <h4 class="mt-0">Email : remy@pur_beurre.com</h4>
+            <div class="col-2 col-lg-1 col-sm-2 col-md-2"></div>
+            <div class="col-3 col-lg-2 col-sm-3 col-md-2 text-center" style="margin-bottom:80px;">
+                <img class="img-fluid" src="{% static 'substitutes/assets/img/mail_icon.png' %}" alt="..." />
+                <h6 class="mt-0">Email : remy @ purbeurre.com</h6>
             </div>
         </div>  
     </div>

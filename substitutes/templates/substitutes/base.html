@@ -26,6 +26,14 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'substitutes/css/styles.css'%}" type="text/css" rel="stylesheet" />
+
+        <style>
+            #footer {
+               position:absolute;
+               bottom:0;
+               width:100%;
+               }
+        </style>
     </head>
     <header id="page-top">
         <!-- Navigation-->
@@ -56,7 +64,7 @@
                                 {% else %}
                                 <a class="nav-link" href="{% url 'users:connexion' %}" style="font-size: 2rem;">
                                 {% endif %}
-                                    <i class="fas fa-carrot" title="Mes Aliments"></i>
+                                <i class="fas fa-carrot" title="Mes Aliments"></i>
                             </a>
                         </li>
                         

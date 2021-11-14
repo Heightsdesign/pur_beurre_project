@@ -139,6 +139,12 @@ p {
   margin-bottom: 1rem;
 }
 
+@media screen and (max-width: 600px) {
+  div.example {
+    font-size: 30px;
+  }
+}
+
 #contact {
   background-color: #ffffff;
 }

@@ -5,20 +5,26 @@
 {% endblock %}
 {% block body %}
 {% load static %}
+<style>
+    ul {
+    text-align: center;
+    list-style-position: inside;
+}
+</style>
 <body>
     <div class="col text-center">
         <a href="{% url 'substitutes:detail' product_id=product.id %}" style="text-decoration:none;">
-            <img class="img-responsive" src={{ product.imgurl }} alt={{ product.name }}>
+            <img class="img-responsive img-fluid" src={{ product.imgurl }} alt={{ product.name }}>
             {% if product.nutriscore == "a" %}
-                <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreBar/A_bar.png' %}" alt="..." />
+                <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreBar/A_bar.png' %}" alt="..." />
             {% elif product.nutriscore == "b" %}
-                <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreBar/B_bar.png' %}" alt="..." />
+                <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreBar/B_bar.png' %}" alt="..." />
             {% elif product.nutriscore == "c" %}
-                <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreBar/C_bar.png' %}" alt="..." />
+                <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreBar/C_bar.png' %}" alt="..." />
             {% elif product.nutriscore == "d" %}
-                <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreBar/D_bar.png' %}" alt="..." />
+                <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreBar/D_bar.png' %}" alt="..." />
             {% elif product.nutriscore == "e" %}
-                <img class="imgoverlap" src="{% static 'substitutes/assets/img/NutriscoreBar/E_bar.png' %}" alt="..." />
+                <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreBar/E_bar.png' %}" alt="..." />
             {% endif %}
             <h4 class="text-white mt-0">I</h4>
             <h4 class=" mt-0">{{ product.name }}</h4>
@@ -26,7 +32,9 @@
     <div class="col text-center">
         <h4 class="mt-0">Repère nutrtionnel pour 100g : </h4>
         {% for nutriment in nutriments %}
-        {{ nutriment.name }}
+        <ul>
+            <li>{{ nutriment.name }} : {{ nutriment.value }},</li>
+        </ul>
         {% endfor %}
         <div class="col text-center">
         {% if messages %}

@@ -5,40 +5,39 @@ from django.forms.widgets import TextInput
 class UserCreationForm(forms.Form):
 
     first_name = forms.CharField(
-        label='password',
+        label="password",
         max_length=30,
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+        required=True,
     )
 
     email = forms.EmailField(
-        label='email',
+        label="email",
         max_length=150,
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+        required=True,
     )
 
     password = forms.CharField(
-        label='password',
+        label="password",
         max_length=150,
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=True
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+        required=True,
     )
 
 
 class LoginForm(forms.Form):
 
     email = forms.EmailField(
-        label='email',
+        label="email",
         max_length=150,
-        widget=TextInput(attrs={'class': 'form-control'}),
-        required=True
+        widget=TextInput(attrs={"class": "form-control"}),
+        required=True,
     )
 
     password = forms.CharField(
-        label='password',
+        label="password",
         max_length=150,
-        widget=TextInput(attrs={'class': 'form-control'}),
-        required=True
+        widget=TextInput(attrs={"class": "form-control"}),
+        required=True,
     )
-

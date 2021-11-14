@@ -6,27 +6,37 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('substitutes', '0002_alter_categories_name'),
+        ("substitutes", "0002_alter_categories_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Nutriments',
+            name="Nutriments",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
             ],
         ),
         migrations.RemoveField(
-            model_name='product',
-            name='stores',
+            model_name="product",
+            name="stores",
         ),
         migrations.DeleteModel(
-            name='Stores',
+            name="Stores",
         ),
         migrations.AddField(
-            model_name='product',
-            name='nutriments',
-            field=models.ManyToManyField(blank=True, related_name='stores', to='substitutes.Nutriments'),
+            model_name="product",
+            name="nutriments",
+            field=models.ManyToManyField(
+                blank=True, related_name="stores", to="substitutes.Nutriments"
+            ),
         ),
     ]
