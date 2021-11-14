@@ -10,8 +10,10 @@ chardet==3.0.4
 click==7.1.2
 colorama==0.4.3
 coverage==5.5
+dj-database-url==0.5.0
 Django==3.2.4
 django-debug-toolbar==3.2.1
+django-heroku==0.3.1
 django-nose==1.4.7
 entrypoints==0.3
 flake8==3.7.9
@@ -39,6 +41,7 @@ platformdirs==2.4.0
 pluggy==1.0.0
 protobuf==3.11.3
 psycopg2==2.8.6
+-e git+https://github.com/Heightsdesign/pur_beurre_project@d0c1d15cf63544920ab32a2be1e135df517b2427#egg=pur_beurre
 py==1.10.0
 pycodestyle==2.5.0
 pyflakes==2.1.1
@@ -60,4 +63,5 @@ tqdm==4.48.2
 typing-extensions==3.10.0.2
 urllib3==1.25.9
 Werkzeug==1.0.1
+whitenoise==5.3.0
 wrapt==1.12.1
