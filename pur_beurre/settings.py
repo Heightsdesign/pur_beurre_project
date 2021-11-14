@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'purbeurreprojectpaul.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -86,7 +85,7 @@ DATABASES = {
         'NAME': 'pur_beurre',
         'USER' : 'postgres',
         'PASSWORD' : 'Eug&nia06240',
-        'HOST' : '',
+        'HOST' : '127.0.0.1',
         'PORT' : '5432',
         'OPTIONS': {
             'client_encoding': 'UTF-8',
