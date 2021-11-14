@@ -3,6 +3,8 @@
 import os
 import sys
 
+user_name = os.environ.get('USER')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 def main():
     """Run administrative tasks."""
