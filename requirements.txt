@@ -39,7 +39,6 @@ platformdirs==2.4.0
 pluggy==1.0.0
 protobuf==3.11.3
 psycopg2==2.8.6
--e git+https://github.com/Heightsdesign/pur_beurre_project@eec58423149f8eaf835029089dce973e502952f3#egg=pur_beurre
 py==1.10.0
 pycodestyle==2.5.0
 pyflakes==2.1.1
