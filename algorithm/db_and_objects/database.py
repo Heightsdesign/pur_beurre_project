@@ -1,6 +1,6 @@
 """Creating Database and Tables"""
 
-from db_and_objects.product import ProductManager
+from product import ProductManager
 
 
 class Database:
