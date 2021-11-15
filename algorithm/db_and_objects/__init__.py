@@ -1,1 +1,1 @@
-from ..connexion import api
+from connexion import api

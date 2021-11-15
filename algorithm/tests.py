@@ -8,7 +8,6 @@ from db_and_objects.product import (
 from django.test import TestCase
 from unittest import mock
 from substitutes.models import Product as DbProduct
-from connexion.api import ProductDownloader
 import requests
 
 
