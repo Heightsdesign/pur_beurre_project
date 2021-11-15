@@ -23,6 +23,11 @@ def product_detail(request, product_id):
     context = {"product": product, "nutriments": nutriments}
     return HttpResponse(template.render(context, request=request))
 
+def legal_mentions(request):
+
+    template = loader.get_template("substitutes/legal.html")
+    return HttpResponse(template.render(request=request))
+
 
 def search(request):
 
@@ -30,30 +35,36 @@ def search(request):
     query = request.GET.get("query")
 
     if query:
-        db_query = Query(name=query)
-        db_query.save()
-        # title contains the query is and query is not sensitive to case.
-        product_query = Product.objects.get(name=query)
-        look_alikes = Product.objects.filter(name__icontains=query)
-        substitutesfetcher = SubstitutesFetcher(query)
-        prodselect = substitutesfetcher.get_product_substitutes_2()
-        product_list = FinalParser(
-            substitutesfetcher).result_parser(prodselect)
-
-        for prod in look_alikes:
-            product_list.append(prod)
-
-        paginator = Paginator(product_list, 6)
-        page_num = request.GET.get("page")
-
         try:
-            products = paginator.get_page(page_num)
+            db_query = Query(name=query)
+            db_query.save()
+            # title contains the query is and query is not sensitive to case.
+            product_query = Product.objects.get(name=query)
+            look_alikes = Product.objects.filter(name__icontains=query)
+            substitutesfetcher = SubstitutesFetcher(query)
+            prodselect = substitutesfetcher.get_product_substitutes_2()
+            product_list = FinalParser(
+                substitutesfetcher).result_parser(prodselect)
 
-        except PageNotAnInteger:
-            products = paginator.get_page(1)
+            for prod in look_alikes:
+                product_list.append(prod)
 
-        except EmptyPage:
-            products = paginator.page(paginator.num_pages)
+            paginator = Paginator(product_list, 6)
+            page_num = request.GET.get("page")
+
+            try:
+                products = paginator.get_page(page_num)
+
+            except PageNotAnInteger:
+                products = paginator.get_page(1)
+
+            except EmptyPage:
+                products = paginator.page(paginator.num_pages)
+
+        except ObjectDoesNotExist:
+
+            messages.info(request, "Pas de produits correspondants !")
+            return render(request, "substitutes/no_product.html")
 
     else:
         db_query = Query.objects.latest('time')

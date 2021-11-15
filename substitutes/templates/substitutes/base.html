@@ -87,11 +87,12 @@
     <footer class="bg-dark py-5">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-md-6 text-center text-white">Mentions Légales</div>
                 <div class="col-sm-6 col-md-6 text-center text-white">
-                    <a href="{% url 'substitutes:index'%}#contact">
-                        Contact
-                    </a>
+                    <a href="{% url 'substitutes:legal_mentions' %}">Mentions Légales</a>
+
+                </div>
+                <div class="col-sm-6 col-md-6 text-center text-white">
+                    <a href="{% url 'substitutes:index'%}#contact">Contact</a>
                 </div>
             </div>
         </div>
