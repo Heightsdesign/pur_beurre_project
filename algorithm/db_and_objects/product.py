@@ -360,4 +360,4 @@ class FinalParser:
     # manager = ProductManager(prods)
     # manager.save_products()
     # manager.delete_doubles(DbProduct)
-    ProductManager('prods').delete_doubles(DbProduct)
+    # ProductManager('prods').delete_doubles(DbProduct)
