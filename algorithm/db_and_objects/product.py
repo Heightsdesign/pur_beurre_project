@@ -15,8 +15,8 @@ sys.path.append("D:/Openclassrooms/P8/pur_beurre_project/algorithm")
 from substitutes.models import Product as DbProduct
 from substitutes.models import Categories as DbCategories
 from substitutes.models import Nutriments as DbNutriments
-from api import ProductDownloader
-import constants
+from .api import ProductDownloader
+import algorithm.db_and_objects.constants as constants
 
 class Product:
     """Creating Product object"""
