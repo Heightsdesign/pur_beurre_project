@@ -23,6 +23,7 @@ def product_detail(request, product_id):
     context = {"product": product, "nutriments": nutriments}
     return HttpResponse(template.render(context, request=request))
 
+
 def legal_mentions(request):
 
     template = loader.get_template("substitutes/legal.html")

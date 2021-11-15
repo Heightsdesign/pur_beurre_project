@@ -18,6 +18,7 @@ from substitutes.models import Nutriments as DbNutriments
 from .api import ProductDownloader
 import algorithm.db_and_objects.constants as constants
 
+
 class Product:
     """Creating Product object"""
 
@@ -193,10 +194,16 @@ class ProductManager:
             for nutriment_name, nutriment_value in product_nutriments.items():
                 if type(nutriment_value) != type(1):
                     nutriment_value = 0
-                    nut = DbNutriments.objects.create(name=nutriment_name, value=nutriment_value)
+                    nut = DbNutriments.objects.create(
+                        name=nutriment_name,
+                        value=nutriment_value
+                    )
                     product.nutriments.add(nut)
                 else:
-                    nut = DbNutriments.objects.create(name=nutriment_name, value=nutriment_value)
+                    nut = DbNutriments.objects.create(
+                        name=nutriment_name,
+                        value=nutriment_value
+                    )
                     product.nutriments.add(nut)
 
     def delete_doubles(self, dbobject):
@@ -349,7 +356,7 @@ class FinalParser:
 
         return self.favorites
 
-    #prods = ProductParser().parser()
-    #manager = ProductManager(prods)
-    #manager.save_products()
-    #manager.delete_doubles(DbProduct)
+    # prods = ProductParser().parser()
+    # manager = ProductManager(prods)
+    # manager.save_products()
+    # manager.delete_doubles(DbProduct)

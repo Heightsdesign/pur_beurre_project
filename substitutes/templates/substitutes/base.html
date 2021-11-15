@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    {% load static %}
-
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-
-        
         <title>Pur Beurre</title>
+        {% load static %}
         <!-- Favicon-->
-
         <link rel="icon" type="image/x-icon" href="{% static 'substitutes/assets/pur_beurre_logo.jpg' %}" />
         <!-- Bootstrap Icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -26,87 +21,89 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'substitutes/css/styles.css'%}" type="text/css" rel="stylesheet" />
-
-        <style>
-            #footer {
-               position:absolute;
-               bottom:0;
-               width:100%;
-               }
-        </style>
-    </head>
-    <header id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="{% url 'substitutes:index' %}">
-                    <img class="img-fluid" src="{% static 'substitutes/assets/img/pur_beurre_logo.png' %}" alt="..." />
-                    PUR BEURRE
-                </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto my-2 my-lg-1">
-
-                        {% include 'substitutes/search_form.html' %}
-
-                        <li class="nav-item">
-                            {% if user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'users:user_page' user_id=user.id %}" style="font-size: 2rem;">
-                                {% else %}
-                                <a class="nav-link" href="{% url 'users:connexion' %}" style="font-size: 2rem;">
-                                {% endif %}
-                            <i class="fas fa-user" title="Mon Compte"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            {% if user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'users:favorites' user_id=user.id %}" style="font-size: 2rem;">
-                                {% else %}
-                                <a class="nav-link" href="{% url 'users:connexion' %}" style="font-size: 2rem;">
-                                {% endif %}
-                                <i class="fas fa-carrot" title="Mes Aliments"></i>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            {% if user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'users:logout' %}" style="font-size: 2rem;">
-                                {% else %}
-                                <a class="nav-link" href="{% url 'users:connexion' %}" style="font-size: 2rem;">
-                                    {% endif %}
-                            <i class="fas fa-sign-out-alt" title="Connexion/Déconnexion"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-        {% block content %}{% endblock %}
-    <!-- Footer-->
-    <footer class="bg-dark py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-6 text-center text-white">
-                    <a href="{% url 'substitutes:legal_mentions' %}">Mentions Légales</a>
-
-                </div>
-                <div class="col-sm-6 col-md-6 text-center text-white">
-                    <a href="{% url 'substitutes:index'%}#contact">Contact</a>
-                </div>
-            </div>
+        <div>
+            <style>
+                #footer {
+                   position:absolute;
+                   bottom:0;
+                   width:100%;
+                   }
+            </style>
         </div>
-    </footer>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- SimpleLightbox plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="{% static 'substitutes/js/scripts.js' %}"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-</body>
+    </head>
+    <body>
+        <header id="page-top">
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+                <div class="container px-4 px-lg-5">
+                    <a class="navbar-brand" href="{% url 'substitutes:index' %}">
+                        <img class="img-fluid" src="{% static 'substitutes/assets/img/pur_beurre_logo.png' %}" alt="..." />
+                        PUR BEURRE
+                    </a>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ms-auto my-2 my-lg-1">
+
+                            {% include 'substitutes/search_form.html' %}
+
+                            <li class="nav-item">
+                                {% if user.is_authenticated %}
+                                <a class="nav-link" href="{% url 'users:user_page' user_id=user.id %}" style="font-size: 2rem;">
+                                    {% else %}
+                                    <a class="nav-link" href="{% url 'users:connexion' %}" style="font-size: 2rem;">
+                                    {% endif %}
+                                <i class="fas fa-user" title="Mon Compte"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                {% if user.is_authenticated %}
+                                <a class="nav-link" href="{% url 'users:favorites' user_id=user.id %}" style="font-size: 2rem;">
+                                    {% else %}
+                                    <a class="nav-link" href="{% url 'users:connexion' %}" style="font-size: 2rem;">
+                                    {% endif %}
+                                    <i class="fas fa-carrot" title="Mes Aliments"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                {% if user.is_authenticated %}
+                                <a class="nav-link" href="{% url 'users:logout' %}" style="font-size: 2rem;">
+                                <i class="fas fa-sign-out-alt" title="Connexion/Déconnexion"></i></a>
+                                {% else %}
+                                <a class="nav-link" href="{% url 'users:connexion' %}" style="font-size: 2rem;">
+                                <i class="fas fa-sign-out-alt" title="Connexion/Déconnexion"></i></a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        {% block content %}{% endblock %}
+        <!-- Footer-->
+        <footer class="bg-dark py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 text-center text-white">
+                        <a href="{% url 'substitutes:legal_mentions' %}">Mentions Légales</a>
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 text-center text-white">
+                        <a href="{% url 'substitutes:index'%}#contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'substitutes/js/scripts.js' %}"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
 </html>

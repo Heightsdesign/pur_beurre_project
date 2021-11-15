@@ -38,10 +38,13 @@ class ProductParserTestCase(TestCase):
             "categories": "snacks, snacks_sucrés",
         }
 
-        # Replaces the self.data in product parser with the mocked data in new_init function
-        with mock.patch("db_and_objects.product.ProductParser.__init__", self.new_init):
+        # Replaces the self.data in product parser with mocked data in new_init
+        with mock.patch(
+                "db_and_objects.product.ProductParser.__init__",
+                self.new_init
+        ):
             # Tests method is_valid with a valid product
-            assert ProductParser().is_valid(product_true) == True
+            assert ProductParser().is_valid(product_true)
 
         # Mocks a which is not supposed to be valid to the method "is_valid"
         product_false = {
@@ -50,13 +53,19 @@ class ProductParserTestCase(TestCase):
             "url": "https://www.openfoodfacts.com/Nutella",
             "categories": ["snacks", "snacks_sucrés"],
         }
-        # Replaces the self.data in product parser with the mocked data in new_init function
-        with mock.patch("db_and_objects.product.ProductParser.__init__", self.new_init):
+        # Replaces the self.data in product parser with mocked data in new_init
+        with mock.patch(
+                "db_and_objects.product.ProductParser.__init__",
+                self.new_init
+        ):
             # Tests method is_valid with a none valid product
-            assert ProductParser().is_valid(product_false) == False
+            assert not ProductParser().is_valid(product_false)
 
     def test_parser(self):
-        with mock.patch("db_and_objects.product.ProductParser.__init__", self.new_init):
+        with mock.patch(
+                "db_and_objects.product.ProductParser.__init__",
+                self.new_init
+        ):
             ProductParser.data = [
                 {
                     "products": [
@@ -116,15 +125,14 @@ class ApiTestCase(TestCase):
 
         self.url = "https://fr.openfoodfacts.org/cgi/search.pl"
         self.params = {
-        "action": "process",
-        "sort_by": "unique_scans_n",
-        "page": 1,
-        "page_size": 10,
-        "json": 1,
-    }
+            "action": "process",
+            "sort_by": "unique_scans_n",
+            "page": 1,
+            "page_size": 10,
+            "json": 1,
+            }
 
     def test_api_response(self):
 
         response = requests.get(self.url, self.params)
         assert response.status_code == 200
-

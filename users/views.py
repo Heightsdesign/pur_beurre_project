@@ -49,14 +49,15 @@ def subscribe_page(request):
                 user = User.objects.create_user(
                     email=email, password=password, first_name=first_name
                 )
-                message = messages.success(
+                messages.success(
                     request, f"Nouveau compte crée pour {email}!"
                 )
                 success = True
                 context = {"success": success}
 
             else:
-                message = messages.info(request, "Ce compte existe déjà")
+                messages.info(request, "Ce compte existe déjà")
+                context = {}
 
             return render(request, "users/thank_you.html", context)
     else:
