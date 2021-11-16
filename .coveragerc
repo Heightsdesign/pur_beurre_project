@@ -1,7 +1,4 @@
 [run]
-branch = True
-omit =
-    *tests*
-    *__init__*
-    /pur_beurre/*
-    substitutes/__init__.py
+omit = *migrations*, *tests*, *init*, *apps*, *admin*, *forms*, *constants*, *settings*
+
+
