@@ -112,6 +112,7 @@ class ProductManager:
 
         for product in self.product_list:
 
+            # Replaces unwanted characters
             product_name = (
                 product.name.replace("é", "e")
                 .replace("è", "e")
@@ -138,14 +139,13 @@ class ProductManager:
                 .replace("ä", "a")
             )
 
+            # Parses the product name
             product_name = self.win1252_parser(product_name)
             product_nutriscore = product.nutriscore
             product_nutriments = product.nutriments
             product_url = product.url
             product_img_url = product.img_url
             product_categories = product.categories
-
-            print(product_name)
 
             product = DbProduct(
                 name=product_name,
@@ -159,6 +159,8 @@ class ProductManager:
             product_categories = product_categories.split(",")
 
             for category in product_categories:
+
+                # Replaces unwanted characters
                 category = (
                     category.replace("'", " ")
                     .replace("é", "e")

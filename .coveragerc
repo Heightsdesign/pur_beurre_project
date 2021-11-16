@@ -1,0 +1,7 @@
+[run]
+branch = True
+omit =
+    *tests*
+    *__init__*
+    /pur_beurre/*
+    substitutes/__init__.py
