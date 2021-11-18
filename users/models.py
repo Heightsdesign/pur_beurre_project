@@ -19,29 +19,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_staffuser(self, email, password):
-
-        # Creates and saves a staff user with the given email and password.
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.staff = True
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, email, password):
-
-        # Creates and saves a superuser with the given email and password.
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.staff = True
-        user.admin = True
-        user.save(using=self._db)
-        return user
-
 
 class User(AbstractBaseUser):
 
@@ -84,13 +61,3 @@ class User(AbstractBaseUser):
         """Does the user have permissions to view the app `app_label`?"""
         # Simplest possible answer: Yes, always
         return True
-
-    @property
-    def is_staff(self):
-        """Is the user a member of staff?"""
-        return self.staff
-
-    @property
-    def is_admin(self):
-        """Is the user a admin member?"""
-        return self.admin

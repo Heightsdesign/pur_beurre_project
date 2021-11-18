@@ -358,6 +358,7 @@ class FinalParser:
 
         return self.favorites
 
+
     # prods = ProductParser().parser()
     # manager = ProductManager(prods)
     # manager.save_products()

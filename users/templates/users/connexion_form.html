@@ -12,7 +12,7 @@
                         {% csrf_token %}
                         <!-- Email address input-->
                         <div class="form-floating mb-3">
-                           <input class="form-control" name="email" type="text" placeholder="Entrez votre nom d'utilisateur" data-sb-validations="required,user_name" />
+                           <input class="form-control" id="email_input" name="email" type="text" placeholder="Entrez votre nom d'utilisateur" data-sb-validations="required,user_name" />
                             <!--{{ form.email }}-->
                             <label for="email">Email</label>
                             <div class="invalid-feedback" data-sb-feedback="email:required">Une adresse Email est requise.</div>
@@ -20,7 +20,7 @@
                         </div>
                         <!-- Password input-->
                         <div class="form-floating mb-3">
-                            <input class="form-control" name="password" type="password" placeholder="Entrez votre mot de passe..." data-sb-validations="required,password" />
+                            <input class="form-control" id="password_input" name="password" type="password" placeholder="Entrez votre mot de passe..." data-sb-validations="required,password" />
                             <!--{{ form.password }}-->
                             <label for="password">Mot de passe</label>
                             <div class="invalid-feedback" data-sb-feedback="password:required">Un mot de passe est requis.</div>

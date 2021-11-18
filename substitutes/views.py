@@ -59,9 +59,6 @@ def search(request):
             except PageNotAnInteger:
                 products = paginator.get_page(1)
 
-            except EmptyPage:
-                products = paginator.page(paginator.num_pages)
-
         except ObjectDoesNotExist:
 
             messages.info(request, "Pas de produits correspondants !")

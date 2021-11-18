@@ -2,21 +2,53 @@ from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from .models import User
 from substitutes.models import Product
-from .views import favorites_page, subscribe_page, connexion_page
+from .views import favorites_page, subscribe_page, connexion_page, user_page, logout_view
 from django.contrib import messages
+from selenium import webdriver
+import time
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 
 class UserPageTestCase(TestCase):
+
     def setUp(self):
 
+        self.factory = RequestFactory()
         self.user = User.objects.create_user(
             email="test@gmail.com", password="test123", first_name="test"
         )
 
     def test_user_page_returns_200(self):
+
         user_id = self.user.id
         response = self.client.get(reverse("users:user_page", args=(user_id,)))
         self.assertEqual(response.status_code, 200)
+
+    def test_users_page_gets_username(self):
+
+        options = Options()
+        # on va utiliser le driver "headless"
+        options.add_argument('--headless')
+        # ou browser = webdriver.Firefox()
+        # on fournit le chemin de chromedriver
+        # qui doit correspondre à la version de chrome installée
+        browser = webdriver.Chrome(ChromeDriverManager().install())
+        time.sleep(5)
+        browser.get('http://127.0.0.1:8000/users/connexion/')
+        email_input = browser.find_element(by=By.ID, value='email_input')
+        password_input = browser.find_element(by=By.ID, value='password_input')
+        email_input.send_keys("test@gmail.com")
+        password_input.send_keys("test123" + Keys.RETURN)
+        time.sleep(5)
+        self.assertTrue(self.user.is_authenticated)
+        assert 'Pur Beurre' in browser.title
+        browser.get('http://127.0.0.1:8000/users/15/')
+        time.sleep(5)
+        # Vérifions qu'il existe bien dans la page un élément d'id 'edit-search-api-fulltext' (champ de recherche)
+        assert "test" in browser.page_source
 
 
 class FavoritesPageTestCase(TestCase):
@@ -47,6 +79,7 @@ class FavoritesPageTestCase(TestCase):
 
 
 class SubscribePageTestCase(TestCase):
+
     def setUp(self):
         self.factory = RequestFactory()
 
@@ -77,6 +110,7 @@ class SubscribePageTestCase(TestCase):
 
 
 class ConnexionPageTestCase(TestCase):
+
     def setUp(self):
 
         self.factory = RequestFactory()
@@ -99,6 +133,17 @@ class ConnexionPageTestCase(TestCase):
         self.request._messages = messages.storage.default_storage(self.request)
         self.assertTrue(self.user.is_authenticated)
 
+    def test_thank_you_page_returns_200(self):
+
+        self.request = self.factory.post(
+            "/users/connexion/",
+            {"email": self.user.email, "password": self.user.password},
+        )
+        self.request._messages = messages.storage.default_storage(self.request)
+        request = self.factory.get("/users/thank_you.html")
+        response = connexion_page(self.request)
+        self.assertEqual(response.status_code, 200)
+
 
 class LogOutTestCase(TestCase):
     def setUp(self):
@@ -107,9 +152,26 @@ class LogOutTestCase(TestCase):
         self.user = User.objects.create_user(
             email="test@gmail.com", password="test123", first_name="test"
         )
+        self.request = self.factory.post(
+            "/users/connexion/",
+            {"email": self.user.email, "password": self.user.password},
+        )
+        self.request._messages = messages.storage.default_storage(self.request)
+
+    def logout_successful(self):
+
+        self.request = self.factory.get("/users/logout/")
+        self.assertFalse(self.user.is_authenticated)
+
+    def test_logout_page_returns_200(self):
+
+        self.request = self.factory.get("/users/logout/")
+        response = connexion_page(self.request)
+        self.assertEqual(response.status_code, 200)
 
 
 class UserTestCase(TestCase):
+
     def setUp(self):
 
         self.user = User.objects.create_user(
@@ -129,3 +191,4 @@ class UserTestCase(TestCase):
         )
         new_count = all_users.count()
         self.assertEqual(new_count, original_count + 1)
+
