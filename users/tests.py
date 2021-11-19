@@ -30,24 +30,29 @@ class UserPageTestCase(TestCase):
     def test_users_page_gets_username(self):
 
         options = Options()
-        # on va utiliser le driver "headless"
         options.add_argument('--headless')
-        # ou browser = webdriver.Firefox()
-        # on fournit le chemin de chromedriver
-        # qui doit correspondre à la version de chrome installée
+        # Sets the dirver
         browser = webdriver.Chrome(ChromeDriverManager().install())
         time.sleep(5)
+        # Browses to the connexion page
         browser.get('http://127.0.0.1:8000/users/connexion/')
+        # Fetches the email and password inputs
         email_input = browser.find_element(by=By.ID, value='email_input')
         password_input = browser.find_element(by=By.ID, value='password_input')
+        # Inserts the email and password inputs
         email_input.send_keys("test@gmail.com")
         password_input.send_keys("test123" + Keys.RETURN)
         time.sleep(5)
+        # Verifies if the user is connected
         self.assertTrue(self.user.is_authenticated)
+        # Verifies if Pur  Beure is in the title of the page
         assert 'Pur Beurre' in browser.title
+
+        # Get the users pager
         browser.get('http://127.0.0.1:8000/users/15/')
         time.sleep(5)
-        # Vérifions qu'il existe bien dans la page un élément d'id 'edit-search-api-fulltext' (champ de recherche)
+
+        # Verifies if the users username is in the page
         assert "test" in browser.page_source
 
 
