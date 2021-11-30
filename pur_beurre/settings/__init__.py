@@ -15,8 +15,8 @@ import os
 # import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-h$1u@^a0ai2+^rsd@4(_y&tlri&ut)0rs8yitqkbtyk3cfz2w*
 DEBUG = True
 
 # ADD heroku 'purbeurreprojectpaul.herokuapp.com'
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'pur_beurre',
         'USER' : 'postgres',
         'PASSWORD' : 'Eug&nia06240',
-        'HOST' : '127.0.0.1',
+        'HOST' : '',
         'PORT' : '5432',
         'OPTIONS': {
             'client_encoding': 'UTF-8',
