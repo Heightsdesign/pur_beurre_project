@@ -12,22 +12,21 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
+# import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-h$1u@^a0ai2+^rsd@4(_y&tlri&ut)0rs8yitqkbtyk3cfz2w*'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-# SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','purbeurreprojectpaul.herokuapp.com','159.65.51.134']
+# ADD heroku 'purbeurreprojectpaul.herokuapp.com'
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -84,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pur_beurre',
-        'USER' : 'plher',
+        'USER' : 'postgres',
         'PASSWORD' : 'Eug&nia06240',
-        'HOST' : 'localhost',
+        'HOST' : '',
         'PORT' : '5432',
         'OPTIONS': {
             'client_encoding': 'UTF-8',
@@ -147,6 +146,5 @@ AUTHENTICATION_BACKENDS = (
     )
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
-django_heroku.settings(locals())
 
-
+# django_heroku.settings(locals())
