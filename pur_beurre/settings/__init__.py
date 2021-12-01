@@ -146,5 +146,11 @@ AUTHENTICATION_BACKENDS = (
     )
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+<<<<<<< HEAD
+=======
+
+# django_heroku.settings(locals())
+
+>>>>>>> 91ff87475fd7ac9f10266b6208c930cbdfbb75b5
 
 # django_heroku.settings(locals())
