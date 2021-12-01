@@ -52,6 +52,7 @@ pytz==2021.1
 regex==2021.10.8
 requests==2.23.0
 six==1.14.0
+selenium==4.0.0
 soupsieve==2.2
 SQLAlchemy==1.4.6
 SQLAlchemy-Utils==0.37.8
