@@ -30,10 +30,12 @@ class UserPageTestCase(TestCase):
     def test_users_page_gets_username(self):
 
         # browser = webdriver.Chrome(ChromeDriverManager().install())
-        browser = webdriver.Chrome()
         options = Options()
         options.add_argument('--headless')
-        # Sets the dirver
+        options.add_arguments("--disable-dev-shm-usage")
+        options.add_arguments('--no-sandbox')
+        browser = webdriver.Chrome(options)
+        # Sets the driver
         # browser = webdriver.Chrome(options)
         time.sleep(5)
         # Browses to the connexion page
