@@ -39,7 +39,7 @@ class ProductParserTestCase(TestCase):
 
         # Replaces the self.data in product parser with mocked data in new_init
         with mock.patch(
-                "db_and_objects.product.ProductParser.__init__",
+                "algorithm.db_and_objects.product.ProductParser.__init__",
                 self.new_init
         ):
             # Tests method is_valid with a valid product
@@ -54,7 +54,7 @@ class ProductParserTestCase(TestCase):
         }
         # Replaces the self.data in product parser with mocked data in new_init
         with mock.patch(
-                "product.ProductParser.__init__",
+                "algorithm.db_and_objects.product.ProductParser.__init__",
                 self.new_init
         ):
             # Tests method is_valid with a none valid product
@@ -62,7 +62,7 @@ class ProductParserTestCase(TestCase):
 
     def test_parser(self):
         with mock.patch(
-                "product.ProductParser.__init__",
+                "algorithm.db_and_objects.product.ProductParser.__init__",
                 self.new_init
         ):
             ProductParser.data = [
