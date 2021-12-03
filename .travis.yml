@@ -16,4 +16,5 @@ services:
 
 script:
   - export PATH=$PATH:`chromedriver-path`
+  - export PATH=$PATH:/home/plher/geckodriver
   - ./manage.py test
