@@ -29,7 +29,7 @@ class UserPageTestCase(TestCase):
 
     def test_users_page_gets_username(self):
 
-        ChromeDriverManager.chromedriver().setup()
+        browser = webdriver.Chrome(ChromeDriverManager().install())
         options = Options()
         options.add_argument('--headless')
         # Sets the dirver
