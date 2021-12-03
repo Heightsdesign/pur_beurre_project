@@ -50,7 +50,7 @@ class UserPageTestCase(TestCase):
 	user = User.objects.latest('date_added')
         user_id = user.id
         # Get the users pager
-        browser.get('http://127.0.0.1:8000/users/{}/'.format(user_id))
+        browser.get('http://159.65.51.134:80/users/{}/'.format(user_id))
         time.sleep(5)
 
         # Verifies if the users username is in the page
