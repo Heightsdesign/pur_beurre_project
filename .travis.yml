@@ -15,4 +15,5 @@ services:
   - postgresql
 
 script:
+  - export PATH=$PATH:`chromedriver-path`
   - ./manage.py test
