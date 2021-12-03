@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-
+import chromedriver_binary
 
 class UserPageTestCase(TestCase):
 
@@ -29,13 +29,14 @@ class UserPageTestCase(TestCase):
 
     def test_users_page_gets_username(self):
 
-        browser = webdriver.Chrome(ChromeDriverManager().install())
+        # browser = webdriver.Chrome(ChromeDriverManager().install())
+        browser = webdriver.Chrome()
         options = Options()
         options.add_argument('--headless')
         options.addArguments("--disable-dev-shm-usage")
         options.addArguments("--no-sandbox")
         # Sets the dirver
-        browser = webdriver.Chrome(options)
+        # browser = webdriver.Chrome(options)
         time.sleep(5)
         # Browses to the connexion page
         browser.get('http://159.65.51.134:80/users/connexion/')
