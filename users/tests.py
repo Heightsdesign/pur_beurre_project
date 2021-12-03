@@ -32,7 +32,7 @@ class UserPageTestCase(TestCase):
         options = Options()
         options.add_argument('--headless')
         # Sets the dirver
-        browser = webdriver.Chrome('/home/travis/.wdm/drivers/chromedriver/linux64/96.0.4664.45')
+        browser = webdriver.Chrome('/usr/bin/chromedriver')
         time.sleep(5)
         # Browses to the connexion page
         browser.get('http://159.65.51.134:80/users/connexion/')
