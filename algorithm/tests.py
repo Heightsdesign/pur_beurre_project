@@ -1,5 +1,6 @@
 import sys
-from .db_and_objects.product import (
+sys.path.append("/home/plher/pur_beurre_project/algorithm")
+from db_and_objects.product import (
     Product,
     ProductParser,
     ProductManager,
