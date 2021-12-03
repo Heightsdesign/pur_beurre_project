@@ -32,6 +32,8 @@ class UserPageTestCase(TestCase):
         browser = webdriver.Chrome(ChromeDriverManager().install())
         options = Options()
         options.add_argument('--headless')
+        options.addArguments("--disable-dev-shm-usage")
+        options.addArguments("--no-sandbox")
         # Sets the dirver
         browser = webdriver.Chrome(options)
         time.sleep(5)
