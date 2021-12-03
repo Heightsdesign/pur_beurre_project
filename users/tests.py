@@ -29,10 +29,11 @@ class UserPageTestCase(TestCase):
 
     def test_users_page_gets_username(self):
 
+        ChromeDriverManager.chromedriver().setup()
         options = Options()
         options.add_argument('--headless')
         # Sets the dirver
-        browser = webdriver.Chrome('/usr/bin/chromedriver')
+        browser = webdriver.Chrome(options)
         time.sleep(5)
         # Browses to the connexion page
         browser.get('http://159.65.51.134:80/users/connexion/')
