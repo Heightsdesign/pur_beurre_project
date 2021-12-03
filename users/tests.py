@@ -34,7 +34,7 @@ class UserPageTestCase(TestCase):
         options.add_argument('--headless')
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument('--no-sandbox')
-        browser = webdriver.Chrome(options)
+        browser = webdriver.Chrome()
         # Sets the driver
         # browser = webdriver.Chrome(options)
         time.sleep(5)
