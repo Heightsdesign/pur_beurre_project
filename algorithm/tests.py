@@ -1,6 +1,5 @@
 import sys
-sys.path.append("/home/plher/pur_beurre_project/algorithm")
-from db_and_objects.product import (
+from algorithm.db_and_objects.product import (
     Product,
     ProductParser,
     ProductManager,
@@ -55,7 +54,7 @@ class ProductParserTestCase(TestCase):
         }
         # Replaces the self.data in product parser with mocked data in new_init
         with mock.patch(
-                "db_and_objects.product.ProductParser.__init__",
+                "product.ProductParser.__init__",
                 self.new_init
         ):
             # Tests method is_valid with a none valid product
@@ -63,7 +62,7 @@ class ProductParserTestCase(TestCase):
 
     def test_parser(self):
         with mock.patch(
-                "db_and_objects.product.ProductParser.__init__",
+                "product.ProductParser.__init__",
                 self.new_init
         ):
             ProductParser.data = [
