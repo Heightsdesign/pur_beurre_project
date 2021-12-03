@@ -1,6 +1,6 @@
 import sys
 sys.path.append("D:/Openclassrooms/P8/pur_beurre_project/algorithm")
-from db_and_objects.product import (
+from algorithm.db_and_objects.product import (
     Product,
     ProductParser,
     ProductManager,
