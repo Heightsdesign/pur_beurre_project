@@ -31,7 +31,7 @@ class UserPageTestCase(TestCase):
 
         # browser = webdriver.Chrome(ChromeDriverManager().install())
         options = Options()
-        browser = webdriver.Firefox()
+        browser = webdriver.Firefox('/home/plher/geckodriver')
         # Sets the driver
         # browser = webdriver.Chrome(options)
         time.sleep(5)
