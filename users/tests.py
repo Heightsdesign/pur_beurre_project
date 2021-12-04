@@ -31,7 +31,7 @@ class UserPageTestCase(TestCase):
 
         # browser = webdriver.Chrome(ChromeDriverManager().install())
         options = Options()
-        browser = webdriver.Firefox('/home/travis/build/Heightsdesign/pur_beurre_project/geckodriver')
+        browser = webdriver.Firefox('/home/plher/pur_beurre_project/geckodriver')
         # Sets the driver
         # browser = webdriver.Chrome(options)
         time.sleep(5)
