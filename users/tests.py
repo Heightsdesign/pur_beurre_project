@@ -10,6 +10,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import chromedriver_binary
 
 class UserPageTestCase(TestCase):
@@ -31,7 +32,8 @@ class UserPageTestCase(TestCase):
 
         # browser = webdriver.Chrome(ChromeDriverManager().install())
         options = Options()
-        browser = webdriver.Firefox('/home/plher/pur_beurre_project/geckodriver')
+	binary = FirefoxBinary('home/plher/pur_beurre_project:geckodriver')
+        browser = webdriver.Firefox(firefox_binary=binary)
         # Sets the driver
         # browser = webdriver.Chrome(options)
         time.sleep(5)
