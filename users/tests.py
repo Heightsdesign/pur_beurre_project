@@ -32,7 +32,7 @@ class UserPageTestCase(TestCase):
 
         # browser = webdriver.Chrome(ChromeDriverManager().install())
         options = Options()
-        binary = FirefoxBinary('home/plher/pur_beurre_project:geckodriver')
+        binary = FirefoxBinary('home/plher/pur_beurre_project/geckodriver')
         browser = webdriver.Firefox(firefox_binary=binary)
         # Sets the driver
         # browser = webdriver.Chrome(options)
