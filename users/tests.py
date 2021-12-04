@@ -6,11 +6,12 @@ from .views import favorites_page, subscribe_page, connexion_page, user_page, lo
 from django.contrib import messages
 from selenium import webdriver
 import time
-from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.options import Options
 import chromedriver_binary
 
 class UserPageTestCase(TestCase):
@@ -31,8 +32,9 @@ class UserPageTestCase(TestCase):
     def test_users_page_gets_username(self):
 
         # browser = webdriver.Chrome(ChromeDriverManager().install())
-        # binary = FirefoxBinary('home/plher/pur_beurre_project/geckodriver')
-        browser = webdriver.Firefox()
+        options = Options()
+        options.headless = True
+        browser = webdriver.Firefox(options=options)
         # Sets the driver
         # browser = webdriver.Chrome(options)
         time.sleep(5)
