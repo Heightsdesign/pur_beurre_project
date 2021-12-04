@@ -31,9 +31,8 @@ class UserPageTestCase(TestCase):
     def test_users_page_gets_username(self):
 
         # browser = webdriver.Chrome(ChromeDriverManager().install())
-        options = Options()
-        binary = FirefoxBinary('home/plher/pur_beurre_project/geckodriver')
-        browser = webdriver.Firefox(firefox_binary=binary)
+        # binary = FirefoxBinary('home/plher/pur_beurre_project/geckodriver')
+        browser = webdriver.Firefox()
         # Sets the driver
         # browser = webdriver.Chrome(options)
         time.sleep(5)
