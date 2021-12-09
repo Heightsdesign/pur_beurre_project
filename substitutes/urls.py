@@ -9,5 +9,5 @@ urlpatterns = [
     url(r"^search/$", views.search, name="search"),
     url(r"^(?P<product_id>[0-9]+)/$", views.product_detail, name="detail"),
     url(r"^legal$", views.legal_mentions, name="legal_mentions"),
-    path('sentry-debug/', trigger_error),
+    path('sentry-debug/', views.trigger_error),
 ]
