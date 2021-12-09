@@ -34,8 +34,7 @@ class UserPageTestCase(TestCase):
         # browser = webdriver.Chrome(ChromeDriverManager().install())
         options = Options()
         options.headless = True
-        options.no-sandbox = True
-        browser = webdriver.Firefox(options=options)
+        browser = webdriver.Firefox(executable_path='/usr/local/bin', options=options)
         # Sets the driver
         # browser = webdriver.Chrome(options)
         time.sleep(5)
