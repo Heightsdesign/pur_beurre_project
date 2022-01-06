@@ -2,17 +2,14 @@ from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from .models import User
 from substitutes.models import Product
-from .views import favorites_page, subscribe_page, connexion_page, user_page, logout_view
+from .views import favorites_page, subscribe_page, connexion_page
 from django.contrib import messages
 from selenium import webdriver
 import time
-# from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.firefox.options import Options
-import chromedriver_binary
+
 
 class UserPageTestCase(TestCase):
 

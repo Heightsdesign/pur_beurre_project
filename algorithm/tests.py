@@ -1,4 +1,3 @@
-import sys
 from algorithm.db_and_objects.product import (
     Product,
     ProductParser,

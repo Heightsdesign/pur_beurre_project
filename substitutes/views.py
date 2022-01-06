@@ -7,7 +7,6 @@ from .forms import FavoriteForm
 from django.core.exceptions import ObjectDoesNotExist
 from algorithm.db_and_objects.product import SubstitutesFetcher, FinalParser
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.urls import path
 
 
 def trigger_error(request):
