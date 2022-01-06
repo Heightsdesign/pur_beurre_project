@@ -31,6 +31,12 @@
                 <h4 class=" mt-0">{{ product.name }}
             </h4>
         </a>
+        <form method="POST">
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit" name="product_id" value="{{fav.id}}" style="font-size: 2rem;" >
+                    <i class="fas fa-save" title="Supprimer favori"></i>
+                </button>
+            </form>
     </div>{% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
 {% endfor %}
 

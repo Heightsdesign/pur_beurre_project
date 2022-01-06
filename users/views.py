@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
-from users.forms import UserCreationForm
+from users.forms import UserCreationForm, DeleteFavForm
 from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -28,7 +28,23 @@ def favorites_page(request, user_id):
         user_favorites = Product.objects.filter(
             favorites__id__icontains=user_id
         )
-        context = {"user": user, "user_favorites": user_favorites}
+
+    if request.method == "POST":
+
+        form = DeleteFavForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            product_id = form.cleaned_data.get("product_id")
+            product = Product.objects.get(id=product_id)
+            user.favorites.remove(product)
+
+    else :
+        form = DeleteFavForm()
+
+    context = {"user": user,
+               "user_favorites": user_favorites,
+               "forms":form
+               }
 
     return HttpResponse(template.render(context, request=request))
 

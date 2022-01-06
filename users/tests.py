@@ -31,7 +31,7 @@ class UserPageTestCase(TestCase):
 
         options = Options()
         options.add_argument('--headless')
-        # Sets the dirver
+        # Sets the driver
         browser = webdriver.Chrome(ChromeDriverManager().install())
         time.sleep(5)
         # Browses to the connexion page
@@ -48,8 +48,10 @@ class UserPageTestCase(TestCase):
         # Verifies if Pur  Beure is in the title of the page
         assert 'Pur Beurre' in browser.title
 
+        user = User.objects.latest('id')
+        user_id = user.id
         # Get the users pager
-        browser.get('http://127.0.0.1:8000/users/15/')
+        browser.get('http://127.0.0.1:8000/users/{}/'.format(user_id))
         time.sleep(5)
 
         # Verifies if the users username is in the page

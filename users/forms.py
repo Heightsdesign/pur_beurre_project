@@ -41,3 +41,6 @@ class LoginForm(forms.Form):
         widget=TextInput(attrs={"class": "form-control"}),
         required=True,
     )
+
+class DeleteFavForm(forms.Form):
+    product_id = forms.CharField()
