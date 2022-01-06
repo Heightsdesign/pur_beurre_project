@@ -42,5 +42,6 @@ class LoginForm(forms.Form):
         required=True,
     )
 
+
 class DeleteFavForm(forms.Form):
     product_id = forms.CharField()

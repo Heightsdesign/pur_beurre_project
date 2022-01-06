@@ -13,7 +13,7 @@ class ProductDownloader:
         "action": "process",
         "sort_by": "unique_scans_n",
         "page": 1,
-        "page_size": 10,
+        "page_size": 400,
         "json": 1,
     }
 

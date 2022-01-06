@@ -6,11 +6,13 @@ from .views import favorites_page, subscribe_page, connexion_page, user_page, lo
 from django.contrib import messages
 from selenium import webdriver
 import time
-from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.options import Options
+import chromedriver_binary
 
 class UserPageTestCase(TestCase):
 
@@ -29,13 +31,15 @@ class UserPageTestCase(TestCase):
 
     def test_users_page_gets_username(self):
 
+        # browser = webdriver.Chrome(ChromeDriverManager().install())
         options = Options()
-        options.add_argument('--headless')
+        options.headless = True
+        browser = webdriver.Firefox(executable_path='/usr/local/bin/geckodriver', options=options)
         # Sets the driver
-        browser = webdriver.Chrome(ChromeDriverManager().install())
+        # browser = webdriver.Chrome(options)
         time.sleep(5)
         # Browses to the connexion page
-        browser.get('http://127.0.0.1:8000/users/connexion/')
+        browser.get('http://159.65.51.134:80/users/connexion/')
         # Fetches the email and password inputs
         email_input = browser.find_element(by=By.ID, value='email_input')
         password_input = browser.find_element(by=By.ID, value='password_input')
@@ -48,14 +52,15 @@ class UserPageTestCase(TestCase):
         # Verifies if Pur  Beure is in the title of the page
         assert 'Pur Beurre' in browser.title
 
-        user = User.objects.latest('id')
-        user_id = user.id
+        self.user = User.objects.latest('id')
+        user_id = self.user.id
         # Get the users pager
-        browser.get('http://127.0.0.1:8000/users/{}/'.format(user_id))
+        browser.get('http://159.65.51.134:80/users/{}/'.format(user_id))
         time.sleep(5)
 
         # Verifies if the users username is in the page
         assert "test" in browser.page_source
+        browser.quit()
 
 
 class FavoritesPageTestCase(TestCase):
