@@ -15,7 +15,7 @@
 {% for fav in user_favorites %}
     <div class="col-sm-4 text-center">
         <a href="{% url 'substitutes:detail' product_id=fav.id %}" style="text-decoration:none;">
-        <img class="img-responsive img-fluid" src={{ fav.imgurl }} alt={{ fav.name }}>
+        <img class="img-responsive img-fluid" src={{ fav.imgurl }} alt={{ fav.name }} id="fav-img">
                 {% if product.nutriscore == "a" %}
                     <img class="imgoverlap img-fluid" src="{% static 'substitutes/assets/img/NutriscoreLetter/A.png' %}" alt="..." />
                 {% elif fav.nutriscore == "b" %}
@@ -33,7 +33,7 @@
         </a>
         <form method="POST">
                 {% csrf_token %}
-                <button class="btn btn-primary" type="submit" name="product_id" value="{{fav.id}}" style="font-size: 2rem;" >
+                <button class="btn btn-primary" type="submit" name="product_id" value="{{fav.id}}" style="font-size: 2rem;" id="delete-fav">
                     <i class="fas fa-save" title="Supprimer favori"></i>
                 </button>
             </form>

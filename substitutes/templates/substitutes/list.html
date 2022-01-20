@@ -2,7 +2,7 @@
 {% extends 'substitutes/banner.html' %}
 {% block insert %}
 <!-- Banner -->
-<h1 class="text-white mt-0">{{ product_query.name }}</h1>
+<h1 class="text-white mt-0" id="product-title">{{ product_query.name }}</h1>
 {% endblock %}
 {% block body %}
 {% load static %}
@@ -35,7 +35,7 @@
             <!-- <hr class="divider" /> -->
             <form method="POST">
                 {% csrf_token %}
-                <button class="btn btn-primary" type="submit" name="product_id" value="{{product.id}}" style="font-size: 2rem;" >
+                <button class="btn btn-primary" id="save" type="submit" name="product_id" value="{{product.id}}" style="font-size: 2rem;" >
                     <i class="fas fa-save" title="Ajouter aux favoris"></i>
                 </button>
             </form>

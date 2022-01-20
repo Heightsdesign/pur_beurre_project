@@ -21,29 +21,32 @@ def favorites_page(request, user_id):
 
     template = loader.get_template("users/favorites.html")
 
-    if request.user.is_authenticated and user_id is not None:
-
-        user = request.user
-        user_id = user.id
-        user_favorites = Product.objects.filter(
-            favorites__id__icontains=user_id
-        )
-
     if request.method == "POST":
 
         form = DeleteFavForm(request.POST)
         if form.is_valid():
+
             user = request.user
             product_id = form.cleaned_data.get("product_id")
             product = Product.objects.get(id=product_id)
             user.favorites.remove(product)
+            user_favorites = Product.objects.filter(
+                favorites__id__icontains=user_id
+            )
 
-    else :
-        form = DeleteFavForm()
+    else:
+        if request.user.is_authenticated and user_id is not None:
+
+            user = request.user
+            user_id = user.id
+            user_favorites = Product.objects.filter(
+                favorites__id__icontains=user_id
+            )
+            form = DeleteFavForm()
 
     context = {"user": user,
                "user_favorites": user_favorites,
-               "forms":form
+               "forms": form
                }
 
     return HttpResponse(template.render(context, request=request))

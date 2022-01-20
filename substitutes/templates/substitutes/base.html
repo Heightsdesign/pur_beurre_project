@@ -55,7 +55,7 @@
                                 <i class="fas fa-user" title="Mon Compte"></i>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" id="favorites">
                                 {% if user.is_authenticated %}
                                 <a class="nav-link" href="{% url 'users:favorites' user_id=user.id %}" style="font-size: 2rem;">
                                     {% else %}
